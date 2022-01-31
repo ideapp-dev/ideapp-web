@@ -17,14 +17,6 @@ router.get('/student', (req, res) => {
 
 router.post('/student', catchAsync(async (req, res, next) => {
     try {
-        const studentInputs = {
-            name: 'Yigit2',
-            sirname: 'Karaduman2',
-            student_id: '1611010642',
-            email: 'ykaraduman@etu.edu.tr2',
-            username: 'ykaraduman2'
-        };
-
         const { name, sirname, student_id, email } = req.body;
         console.log("email", email);
         username = email.substring(0, email.lastIndexOf("@"));

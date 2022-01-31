@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const connectDB = require('./connection.js');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
@@ -16,14 +17,16 @@ const Student = require('./models/student');
 const userRoutes = require('./routes/users')
 
 // --- database connection ---
-mongoose.connect('mongodb://localhost:27017/ideapp');
+// mongoose.connect('mongodb://localhost:27017/ideapp');
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-    console.log("Database connected");
-});
+// const db = mongoose.connection;
+// db.on("error", console.error.bind(console, "connection error:"));
+// db.once("open", () => {
+//     console.log("Database connected");
+// });
 // ---
+
+connectDB();
 
 const app = express();
 
