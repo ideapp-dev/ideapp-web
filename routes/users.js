@@ -25,7 +25,10 @@ router.post('/student', catchAsync(async (req, res, next) => {
             username: 'ykaraduman2'
         };
 
-        const student = new Student(studentInputs);
+        const { name, sirname, student_id, email } = req.body;
+        console.log("email", email);
+        username = email.substring(0, email.lastIndexOf("@"));
+        const student = new Student({ name, sirname, student_id, email, username });
         const registeredStudent = await Student.register(student, 'asdasd');
         //req.flash('success', 'Welcome to IdeApp!');
         res.send('success, you are registered!');
