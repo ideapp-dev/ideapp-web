@@ -49,16 +49,8 @@ passport.serializeUser(Student.serializeUser());
 passport.deserializeUser(Student.deserializeUser());
 //---
 
-app.use('/register', userRoutes);
+app.use('/', userRoutes);
 
-
-
-
-
-
-app.get('/', (req, res) => {
-    res.render('home', { title: 'home' });
-})
 
 app.get('/profile', (req, res) => {
     res.render('profile', { title: 'profile' });

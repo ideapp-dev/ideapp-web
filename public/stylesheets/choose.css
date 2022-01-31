@@ -1,0 +1,14 @@
+body{
+    background-image: url('/images/home-background.jpg');
+    background-size: 100% 100%;
+}
+
+main .container{
+    margin: auto;
+}
+
+
+
+a{
+    text-decoration: none;
+}
