@@ -12,17 +12,17 @@ router.get('/', (req, res) => {
 
 // /register/student
 router.get('/student', (req, res) => {
-    res.send('student registiration page');
+    res.render('users/register_student', { title: 'register' });
 });
 
 router.post('/student', catchAsync(async (req, res, next) => {
     try {
         const studentInputs = {
-            name: 'Yigit',
-            sirname: 'Karaduman',
-            student_id: '161101064',
-            email: 'ykaraduman@etu.edu.tr',
-            username: 'ykaraduman'
+            name: 'Yigit2',
+            sirname: 'Karaduman2',
+            student_id: '1611010642',
+            email: 'ykaraduman@etu.edu.tr2',
+            username: 'ykaraduman2'
         };
 
         const student = new Student(studentInputs);

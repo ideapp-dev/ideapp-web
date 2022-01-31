@@ -1,0 +1,21 @@
+body{
+    display: flex;
+    align-items: center;
+    padding: 40px 0 40px 0;
+    background-image: url("../images/home-background.jpg");
+    background-size: 100% 100%;
+}
+
+html, body {
+    height: 100%;
+}
+
+.login-form{
+    width: 400px;
+    margin: auto;
+}
+label{
+    padding: 20px 0 0 0;
+    color: white
+}
+
