@@ -6,20 +6,24 @@ const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError');
 const catchAsync = require('./utils/catchAsync');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
-//--- database connection ---
-// mongoose.connect('mongodb://localhost:27017/ideapp', {
-//     useNewUrlParser: true,
-//     useCreateIndex: true,
-//     useUnifiedTopology: true
-// });
-
-// const db = mongoose.connection;
-// db.on("error", console.error.bind(console, "connection error:"));
-// db.once("open", () => {
-//     console.log("Database connected");
-// });
+//--- db
+const Student = require('./models/student');
 //---
+
+const userRoutes = require('./routes/users')
+
+// --- database connection ---
+mongoose.connect('mongodb://localhost:27017/ideapp');
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+    console.log("Database connected");
+});
+// ---
 
 const app = express();
 
@@ -31,8 +35,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')))
 
-//logger
+//--- logger
 app.use(morgan('tiny'));
+//---
+
+//--- passport setup
+app.use(passport.initialize());
+passport.use(new LocalStrategy(Student.authenticate()));
+passport.serializeUser(Student.serializeUser());
+passport.deserializeUser(Student.deserializeUser());
+//---
+
+app.use('/register', userRoutes);
+
+
+
+
+
 
 app.get('/', (req, res) => {
     res.render('home', { title: 'home' });
