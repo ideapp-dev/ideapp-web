@@ -38,6 +38,10 @@ app.get('/', (req, res) => {
     res.render('home', { title: 'home' });
 })
 
+app.get('/profile', (req, res) => {
+    res.render('profile', { title: 'profile' });
+})
+
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
 })
