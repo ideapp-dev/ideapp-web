@@ -7,25 +7,24 @@ const Student = require('../models/student');
 
 // /register
 router.get('/', (req, res) => {
-    res.send('choose user type');
+    res.render('home', { title: 'home' });
+});
+
+router.get('/register', (req, res) => {
+    res.render('users/choose', { title: 'register' });
 });
 
 // /register/student
-router.get('/student', (req, res) => {
-    res.send('student registiration page');
+router.get('/register/student', (req, res) => {
+    res.render('users/register_student', { title: 'register' });
 });
 
-router.post('/student', catchAsync(async (req, res, next) => {
+router.post('/register/student', catchAsync(async (req, res, next) => {
     try {
-        const studentInputs = {
-            name: 'Yigit',
-            sirname: 'Karaduman',
-            student_id: '161101064',
-            email: 'ykaraduman@etu.edu.tr',
-            username: 'ykaraduman'
-        };
-
-        const student = new Student(studentInputs);
+        const { name, sirname, student_id, email } = req.body;
+        console.log("email", email);
+        username = email.substring(0, email.lastIndexOf("@"));
+        const student = new Student({ name, sirname, student_id, email, username });
         const registeredStudent = await Student.register(student, 'asdasd');
         //req.flash('success', 'Welcome to IdeApp!');
         res.send('success, you are registered!');
@@ -35,9 +34,15 @@ router.post('/student', catchAsync(async (req, res, next) => {
     }
 }));
 
-// /register/instructor
-router.get('/instructor', (req, res) => {
-    res.send('instructor registiration page');
+router.get('/register/instructor', (req, res) => {
+    res.render('users/register_instructor', { title: 'register' });
 });
+
+// /register/instructor
+router.get('/login', (req, res) => {
+    res.render('users/login', { title: 'login' });
+});
+
+
 
 module.exports = router;
