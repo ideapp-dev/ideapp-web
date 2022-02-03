@@ -3,10 +3,9 @@ const router = express.Router();
 const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
 const Student = require('../models/student');
+const bcrypt = require('bcrypt');
 
-
-// /register
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     res.render('home', { title: 'home' });
 });
 
@@ -14,24 +13,26 @@ router.get('/register', (req, res) => {
     res.render('users/choose', { title: 'register' });
 });
 
-// /register/student
 router.get('/register/student', (req, res) => {
     res.render('users/register_student', { title: 'register' });
 });
 
 router.post('/register/student', catchAsync(async (req, res, next) => {
     try {
-        const { name, sirname, student_id, email } = req.body;
-        console.log("email", email);
-        username = email.substring(0, email.lastIndexOf("@"));
-        const student = new Student({ name, sirname, student_id, email, username });
-        const registeredStudent = await Student.register(student, 'asdasd');
-        //req.flash('success', 'Welcome to IdeApp!');
-        res.send('success, you are registered!');
+        const { name, sirname, student_id, email, password } = req.body;
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(password, salt)
+        const student = new Student({ name, sirname, student_id, email, password: hashedPassword });
+        await student.save();
+        req.flash('success', 'Welcome to IdeApp!');
+        res.redirect('/login');
     } catch (e) {
-        //req.flash('error', e.message);
-        res.send(e.message);
+        console.log("message", e.message);
+        req.flash('error', e.message);
+        res.redirect('/register/student');
     }
+
+
 }));
 
 router.get('/register/instructor', (req, res) => {
@@ -42,9 +43,15 @@ router.get('/login', (req, res) => {
     res.render('users/login', { title: 'login' });
 });
 
-router.post('/login', (req, res) => {
 
-});
+router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
+    //req.flash('success', 'welcome back!');
+    res.send("success, welcome!");
+    // const redirectUrl = req.session.returnTo || '/campgrounds';
+    // delete req.session.returnTo;
+    // res.redirect(redirectUrl);
+})
+
 
 
 
