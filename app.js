@@ -7,24 +7,17 @@ const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError');
 const catchAsync = require('./utils/catchAsync');
+const session = require('express-session');
+const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const bcrypt = require('bcrypt');
 
 //--- db
 const Student = require('./models/student');
 //---
 
 const userRoutes = require('./routes/users')
-
-// --- database connection ---
-// mongoose.connect('mongodb://localhost:27017/ideapp');
-
-// const db = mongoose.connection;
-// db.on("error", console.error.bind(console, "connection error:"));
-// db.once("open", () => {
-//     console.log("Database connected");
-// });
-// ---
 
 connectDB();
 
@@ -37,17 +30,42 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')))
-
-//--- logger
 app.use(morgan('tiny'));
-//---
+
+
+const sessionConfig = {
+    secret: 'thisshouldbeabettersecret!',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+
+app.use(session(sessionConfig))
+app.use(flash());
 
 //--- passport setup
+const initializePassport = require('./passport-config');
+initializePassport(
+    passport,
+    email => Student.find({ email: email }),
+    id => Student.find({ _id: id })
+);
+
 app.use(passport.initialize());
-passport.use(new LocalStrategy(Student.authenticate()));
-passport.serializeUser(Student.serializeUser());
-passport.deserializeUser(Student.deserializeUser());
-//---
+app.use(passport.session())
+
+app.use((req, res, next) => {
+    console.log(req.session)
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
+
 
 app.use('/', userRoutes);
 
