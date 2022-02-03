@@ -38,9 +38,12 @@ router.get('/register/instructor', (req, res) => {
     res.render('users/register_instructor', { title: 'register' });
 });
 
-// /register/instructor
 router.get('/login', (req, res) => {
     res.render('users/login', { title: 'login' });
+});
+
+router.post('/login', (req, res) => {
+
 });
 
 
