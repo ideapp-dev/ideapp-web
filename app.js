@@ -51,11 +51,6 @@ passport.deserializeUser(Student.deserializeUser());
 
 app.use('/', userRoutes);
 
-
-app.get('/profile', (req, res) => {
-    res.render('profile', { title: 'profile' });
-})
-
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
 })
