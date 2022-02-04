@@ -17,6 +17,10 @@ router.get('/register/student', (req, res) => {
     res.render('users/register_student', { title: 'register' });
 });
 
+router.get('/profile', (req, res) => {
+    res.render('users/profile', { title: 'profile' });
+});
+
 router.post('/register/student', catchAsync(async (req, res, next) => {
     try {
         const { name, sirname, student_id, email, password } = req.body;
