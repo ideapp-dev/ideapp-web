@@ -17,7 +17,7 @@
     <main class="login-form card">
       <%- include('../partials/flash')%>
         <div class="card-body">
-          <form action="/register/student" method="POST" class="validated-form" novalidate>
+          <form action="/register/<%=userType%>" method="POST" class="validated-form" novalidate>
             <img src="/images/picon.png" class="mb-3" height="144" width="144">
             <h3>Please Register</h3>
             <div class="form-floating mb-3">
@@ -28,21 +28,23 @@
               <input class="form-control" placeholder="Sirname" name="sirname" id="sirname" required />
               <label for="sirname">Sirname</label>
             </div>
-            <div class="form-floating mb-3">
-              <input class="form-control" placeholder="Student ID" name="student_id" id="student_id" required />
-              <label for="student_id">Student ID</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input type="email" class="form-control" placeholder="username@etu.edu.tr" name="email" id="email"
-                required />
-              <label for="email">Mail</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input type="password" class="form-control" placeholder="Password" name="password" id="password"
-                required />
-              <label for="password">Password</label>
-            </div>
-            <button class="w-100 btn btn-lg btn-primary">Register</button>
+            <% if(userType=='student' ) {%>
+              <div class="form-floating mb-3">
+                <input class="form-control" placeholder="Student ID" name="student_id" id="student_id" required />
+                <label for="student_id">Student ID</label>
+              </div>
+              <% }%>
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" placeholder="username@etu.edu.tr" name="email" id="email"
+                    required />
+                  <label for="email">Mail</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="password" class="form-control" placeholder="Password" name="password" id="password"
+                    required />
+                  <label for="password">Password</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary">Register</button>
           </form>
         </div>
         <%- include('../partials/footer')%>

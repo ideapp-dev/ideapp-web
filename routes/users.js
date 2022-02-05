@@ -15,7 +15,7 @@ router.get('/register', (req, res) => {
 });
 
 router.get('/register/student', (req, res) => {
-    res.render('users/register_student', { title: 'register' });
+    res.render('users/register', { userType: 'student' });
 });
 
 router.get('/profile', isLoggedIn, (req, res) => {
@@ -42,8 +42,12 @@ router.post('/register/student', catchAsync(async (req, res, next) => {
 }));
 
 router.get('/register/instructor', (req, res) => {
-    res.render('users/register_instructor', { title: 'register' });
+    res.render('users/register', { userType: 'instructor' });
 });
+
+router.post('/register/instructor', catchAsync(async (req, res, next) => {
+    console.log("instructor posted")
+}));
 
 router.get('/login', (req, res) => {
     res.render('users/login', { title: 'login' });
