@@ -15,6 +15,7 @@ const bcrypt = require('bcrypt');
 
 //--- db
 const Student = require('./models/student');
+const Instructor = require('./models/instructor');
 //---
 
 const userRoutes = require('./routes/users')
@@ -49,23 +50,28 @@ app.use(flash());
 
 //--- passport setup
 const initializePassport = require('./passport-config');
-initializePassport(
+initializePassport.initializeStudent(
     passport,
     email => Student.find({ email: email }),
     id => Student.find({ _id: id })
+);
+
+initializePassport.initializeInstructor(
+    passport,
+    email => Instructor.find({ email: email }),
+    id => Instructor.find({ _id: id })
 );
 
 app.use(passport.initialize());
 app.use(passport.session())
 
 app.use((req, res, next) => {
-    console.log("req.user...", req.user);
+    console.log("current user:", req.user);
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 })
-
 
 app.use('/', userRoutes);
 
