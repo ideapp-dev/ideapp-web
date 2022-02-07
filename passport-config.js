@@ -5,7 +5,6 @@ function initializeStudent(passport, getUserByEmail, getUserById) {
     const authenticateUser = async (email, password, done) => {
         const userList = await getUserByEmail(email);
         const user = userList[0];
-        console.log("user:", user);
         if (user == null) {
             return done(null, false, { message: 'No user with that email' })
         }
@@ -25,6 +24,7 @@ function initializeStudent(passport, getUserByEmail, getUserById) {
     passport.serializeUser((user, done) => done(null, user.id))
     passport.deserializeUser(async (id, done) => {
         const user = await getUserById(id);
+        console.log('student usr: ' + user);
         return done(null, user)
     })
 }
@@ -33,7 +33,6 @@ function initializeInstructor(passport, getUserByEmail, getUserById) {
     const authenticateUser = async (email, password, done) => {
         const userList = await getUserByEmail(email);
         const user = userList[0];
-        console.log("user:", user);
         if (user == null) {
             return done(null, false, { message: 'No user with that email' })
         }
@@ -53,6 +52,7 @@ function initializeInstructor(passport, getUserByEmail, getUserById) {
     passport.serializeUser((user, done) => done(null, user.id))
     passport.deserializeUser(async (id, done) => {
         const user = await getUserById(id);
+        console.log("inst:" + user);
         return done(null, user)
     })
 }

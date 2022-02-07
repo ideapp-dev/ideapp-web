@@ -16,16 +16,27 @@
     <%- include('../partials/navbar')%>
         <main class="mt-auto">
             <div class="container">
+
                 <div class="row">
                     <div class="row">
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4">
+                            <%- include('../partials/flash')%>
+                        </div>
+                        <div class="col-4"></div>
 
-                        <h1 class="display-1"><a href="/register/instructor" class="link-secondary ">i am an
+                    </div>
+                    <div class="row">
+
+                        <h1 class="display-1"><a href="/<%= to %>/instructor" class="link-secondary ">i am an
                                 instructor</a>
                         </h1>
                         <hr class="bg-white border-2 border-top border-white">
                     </div>
                     <div class=" row">
-                        <h1 class="display-1"><a href="/register/student" class="link-secondary ">i am a student</a>
+                        <h1 class="display-1"><a href="/<%= to %>/student" class="link-secondary ">i am a
+                                student</a>
                         </h1>
                     </div>
 

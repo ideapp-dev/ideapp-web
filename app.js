@@ -67,6 +67,8 @@ app.use(passport.session())
 
 app.use((req, res, next) => {
     console.log("current user:", req.user);
+    const { userType } = req.body;
+    res.locals.userType = userType;
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');

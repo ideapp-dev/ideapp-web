@@ -7,20 +7,34 @@ const Instructor = require('../models/instructor');
 const bcrypt = require('bcrypt');
 const { isLoggedIn } = require('../middleware');
 
+
 router.get('/', async (req, res) => {
     res.render('home', { title: 'home' });
 });
 
 router.get('/register', (req, res) => {
-    res.render('users/choose', { title: 'register' });
+    res.render('users/choose', { to: 'register' });
 });
 
 router.get('/register/student', (req, res) => {
     res.render('users/register', { userType: 'student' });
 });
 
-router.get('/profile', isLoggedIn, (req, res) => {
-    res.render('users/profile', { title: 'profile' });
+router.get('/register/instructor', async (req, res) => {
+    console.log("instructor data:", await Instructor.find({}));
+    res.render('users/register', { userType: 'instructor' });
+});
+
+router.get('/login', (req, res) => {
+    res.render('users/choose', { to: 'login' });
+});
+
+router.get('/login/student', (req, res) => {
+    res.render('users/login', { userType: 'student', checkstudent: 'checked', checkinst: 'unchecked' });
+});
+
+router.get('/login/instructor', (req, res) => {
+    res.render('users/login', { userType: 'instructor', checkstudent: 'unchecked', checkinst: 'checked' });
 });
 
 router.post('/register/student', catchAsync(async (req, res, next) => {
@@ -36,16 +50,10 @@ router.post('/register/student', catchAsync(async (req, res, next) => {
             res.redirect('/');
         })
     } catch (e) {
-        console.log("message", e.message);
         req.flash('error', e.message);
         res.redirect('/register/student');
     }
 }));
-
-router.get('/register/instructor', async (req, res) => {
-    console.log("instructor data:", await Instructor.find({}));
-    res.render('users/register', { userType: 'instructor' });
-});
 
 router.post('/register/instructor', catchAsync(async (req, res, next) => {
     console.log("instructor posted")
@@ -61,23 +69,28 @@ router.post('/register/instructor', catchAsync(async (req, res, next) => {
             res.redirect('/');
         })
     } catch (e) {
-        console.log("message", e.message);
         req.flash('error', e.message);
         res.redirect('/register/instructor');
     }
 }));
 
-router.get('/login', (req, res) => {
-    res.render('users/login', { title: 'login' });
-});
-
-
-router.post('/login', passport.authenticate('instructor-auth', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
+router.post('/login/student', passport.authenticate('student-auth', { failureFlash: true, failureRedirect: '/login/student' }), (req, res) => {
     req.flash('success', 'Welcome back!');
     // const redirectUrl = req.session.returnTo || '/';
     // delete req.session.returnTo;
     res.redirect("/");
 })
+
+router.post('/login/instructor', passport.authenticate('instructor-auth', { failureFlash: true, failureRedirect: '/login/instructor' }), (req, res) => {
+    req.flash('success', 'Welcome back!');
+    // const redirectUrl = req.session.returnTo || '/';
+    // delete req.session.returnTo;
+    res.redirect("/");
+})
+
+router.get('/profile', isLoggedIn, (req, res) => {
+    res.render('users/profile', { title: 'profile' });
+});
 
 router.get('/logout', (req, res) => {
     req.logout();
