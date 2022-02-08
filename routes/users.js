@@ -89,7 +89,8 @@ router.post('/login/instructor', passport.authenticate('instructor-auth', { fail
 })
 
 router.get('/profile', isLoggedIn, (req, res) => {
-    res.render('users/profile', { title: 'profile' });
+    let fullname = req.user[0].name + " " + req.user[0].sirname;
+    res.render('users/profile', { user: req.user, fullname: fullname });
 });
 
 router.get('/logout', (req, res) => {

@@ -19,46 +19,51 @@
         <img src="/images/default.jpg" class="mb-3 rounded" height="144" width="144">
         <h3>Profile</h3>
         <div class="form-floating mb-3">
-          <input type="name" class="form-control" placeholder="name" name="name" id="name" disabled />
+          <input type="name" class="form-control" placeholder="name" name="name" id="name" value='<%=fullname %>'
+            disabled />
           <label for="name">Name Surname</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="email" class="form-control" placeholder="username@etu.edu.tr" name="email" id="email" disabled />
+          <input type="email" class="form-control" placeholder="username@etu.edu.tr" name="email" id="email"
+            value=<%=user[0]['email'] %> disabled />
           <label for="email">Mail</label>
         </div>
         <div class="form-floating mb-3">
           <input type="password" class="form-control" placeholder="Password" name="password" id="password" disabled />
           <label for="password">Password</label>
         </div>
-        <div class="form-floating mb-3">
-          <input type="id" class="form-control" placeholder="Student id" name="student id" id="student id" disabled />
-          <label for="password">Student id</label>
-        </div>
-        <Input type="button" class="w-100 btn btn-lg btn-primary mt-3" id="edit" value="Edit"></Input>
+        <% if(user[0].student_id) {%>
+          <div class="form-floating mb-3">
+            <input type="id" class="form-control" placeholder="Student id" name="student_id" id="student_id"
+              value=<%=user[0]['student_id'] %> disabled />
+            <label for="student_id">Student id</label>
+          </div>
+          <% } %>
+            <Input type="button" class="w-100 btn btn-lg btn-primary mt-3" id="edit" value="Edit"></Input>
 
-        <script>
-          var clickCount = 0;
-          var but = document.getElementById('edit');
-          but.addEventListener("click", profile_edit);
+            <script>
+              var clickCount = 0;
+              var but = document.getElementById('edit');
+              but.addEventListener("click", profile_edit);
 
 
-          function profile_edit() {
-            clickCount++;
-            document.getElementById('email').disabled = false;
-            document.getElementById('password').disabled = false;
-            document.getElementById('edit').value = "Save";
+              function profile_edit() {
+                clickCount++;
+                document.getElementById('email').disabled = false;
+                document.getElementById('password').disabled = false;
+                document.getElementById('edit').value = "Save";
 
-            if (clickCount > 0) {
-              but.removeEventListener("click", profile_edit);
-              but.addEventListener("click", reload_profile);
-            }
-          };
+                if (clickCount > 0) {
+                  but.removeEventListener("click", profile_edit);
+                  but.addEventListener("click", reload_profile);
+                }
+              };
 
-          function reload_profile() {
-            window.location = './profile';
-          };
-        </script>
-        </form>
+              function reload_profile() {
+                window.location = './profile';
+              };
+            </script>
+            </form>
       </div>
       <%- include('../partials/footer')%>
     </main>

@@ -24,8 +24,10 @@ function initializeStudent(passport, getUserByEmail, getUserById) {
     passport.serializeUser((user, done) => done(null, user.id))
     passport.deserializeUser(async (id, done) => {
         const user = await getUserById(id);
-        console.log('student usr: ' + user);
-        return done(null, user)
+        if (user.length > 0)
+            return done(null, user)
+        else
+            return done('pass');
     })
 }
 
@@ -52,7 +54,6 @@ function initializeInstructor(passport, getUserByEmail, getUserById) {
     passport.serializeUser((user, done) => done(null, user.id))
     passport.deserializeUser(async (id, done) => {
         const user = await getUserById(id);
-        console.log("inst:" + user);
         return done(null, user)
     })
 }
