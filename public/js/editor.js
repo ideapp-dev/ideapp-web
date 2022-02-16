@@ -3,9 +3,14 @@ const consoleLogList = document.querySelector('.editor__console-logs');
 const executeCodeBtn = document.querySelector('.editor__run');
 const resetCodeBtn = document.querySelector('.editor__reset');
 
+let cmbLanguage = document.getElementById('selectLanguage');
+let cmbTheme = document.getElementById('selectTheme');
+let cmbFontsize = document.getElementById('selectFontSize');
+
+
 // Setup Ace
 let codeEditor = ace.edit("editorCode");
-let defaultCode = 'console.log("Hello World!")';
+let defaultCode = '';
 let consoleMessages = [];
 
 let editorLib = {
@@ -37,7 +42,7 @@ let editorLib = {
         codeEditor.setTheme("ace/theme/dracula");
 
         // Set language
-        codeEditor.session.setMode("ace/mode/javascript");
+        codeEditor.session.setMode("ace/mode/java");
 
         // Set Options
         codeEditor.setOptions({
@@ -78,5 +83,28 @@ resetCodeBtn.addEventListener('click', () => {
     // Clear console messages
     editorLib.clearConsoleScreen();
 })
+
+cmbLanguage.addEventListener('change', (event) => {
+    let selectedLanguage = (cmbLanguage.options[cmbLanguage.selectedIndex].value);
+    codeEditor.getSession().setMode("ace/mode/" + selectedLanguage);
+    codeEditor.setValue('');
+    editorLib.clearConsoleScreen();
+    console.log(selectedLanguage);
+})
+
+cmbTheme.addEventListener('change', (event) => {
+    let selectedTheme = (cmbTheme.options[cmbTheme.selectedIndex].value);
+    codeEditor.setTheme("ace/theme/" + selectedTheme);
+    console.log(selectedTheme);
+})
+
+cmbFontsize.addEventListener('change', (event) => {
+    let selectedFontsize = (cmbFontsize.options[cmbFontsize.selectedIndex].value);
+    codeEditor.setOptions({
+        fontSize: `${selectedFontsize}pt`
+    });
+    console.log(selectedFontsize);
+})
+
 
 editorLib.init();

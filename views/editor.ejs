@@ -16,6 +16,47 @@
     <%- include('./partials/navbar')%>
         <div class="editor">
             <div class="editor__wrapper">
+                <div class="panel">
+                    <div class="drop-language">
+                        <form>
+                            Language:
+                            <select id="selectLanguage">
+                                <option value="java">Java</option>
+                                <option value="javascript">Javascript</option>
+                                <option value="python">Python</option>
+                                <option value="c_cpp">C</option>
+                                <option value="c_cpp">C++</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div class="appereance">
+                        <div class="drop-theme">
+                            <form>
+                                Theme:
+                                <select id="selectTheme">
+                                    <option value="dreamweaver">Dreamweaver</option>
+                                    <option value="dracula" selected>Dracula</option>
+                                    <option value="solarized_dark">Solarized Dark</option>
+                                    <option value="solarized_light">Solarized Light</option>
+                                    <option value="ambiance">Ambiance</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="drop-fontsize">
+                            <form>
+                                Font Size:
+                                <select id="selectFontSize">
+                                    <option value="10">10</option>
+                                    <option value="12" selected>12</option>
+                                    <option value="14">14</option>
+                                    <option value="16">16</option>
+                                    <option value="18">18</option>
+                                    <option value="20">20</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <div class="editor__body">
                     <div id="editorCode" class="editor__code"></div>
                 </div>
@@ -43,7 +84,8 @@
 
         <!--required ace libraries-->
         <script src="/js/ace-editor/src-min/ace.js"></script>
-        <script src="/js/ace-editor/src-min/mode-javascript.js"></script>
+        <!-- <script src="/js/ace-editor/src-min/mode-javascript.js"></script>
+        <script src="/js/ace-editor/src-min/mode-java.js"></script> -->
         <script src="/js/ace-editor/src-min/ext-language_tools.js"></script>
 
         <!-- Custom Scripts -->
