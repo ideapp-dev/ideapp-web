@@ -21,11 +21,11 @@
                         <form>
                             Language:
                             <select id="selectLanguage">
-                                <option value="apple">Java</option>
-                                <option value="orange">Javascript</option>
-                                <option value="pineapple">Python</option>
-                                <option value="banana">C</option>
-                                <option value="banana">C++</option>
+                                <option value="java">Java</option>
+                                <option value="javascript">Javascript</option>
+                                <option value="python">Python</option>
+                                <option value="c_cpp">C</option>
+                                <option value="c_cpp">C++</option>
                             </select>
                         </form>
                     </div>
@@ -34,10 +34,11 @@
                             <form>
                                 Theme:
                                 <select id="selectTheme">
-                                    <option value="apple">Apple</option>
-                                    <option value="orange">Orange</option>
-                                    <option value="pineapple">Pineapple</option>
-                                    <option value="banana">Banana</option>
+                                    <option value="dreamweaver">Dreamweaver</option>
+                                    <option value="dracula" selected>Dracula</option>
+                                    <option value="solarized_dark">Solarized Dark</option>
+                                    <option value="solarized_light">Solarized Light</option>
+                                    <option value="ambiance">Ambiance</option>
                                 </select>
                             </form>
                         </div>
@@ -46,7 +47,7 @@
                                 Font Size:
                                 <select id="selectFontSize">
                                     <option value="10">10</option>
-                                    <option value="12">12</option>
+                                    <option value="12" selected>12</option>
                                     <option value="14">14</option>
                                     <option value="16">16</option>
                                     <option value="18">18</option>
@@ -83,7 +84,8 @@
 
         <!--required ace libraries-->
         <script src="/js/ace-editor/src-min/ace.js"></script>
-        <script src="/js/ace-editor/src-min/mode-javascript.js"></script>
+        <!-- <script src="/js/ace-editor/src-min/mode-javascript.js"></script>
+        <script src="/js/ace-editor/src-min/mode-java.js"></script> -->
         <script src="/js/ace-editor/src-min/ext-language_tools.js"></script>
 
         <!-- Custom Scripts -->
