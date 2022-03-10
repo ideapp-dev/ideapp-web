@@ -16,10 +16,19 @@ router.get('/register', (req, res) => {
     res.render('users/choose', { to: 'register' });
 });
 
+<<<<<<< Updated upstream
+=======
+router.get('/profile', (req, res) => {
+    res.render('users/profile', { title: 'profile' });
+});
+
+// /register/student
+>>>>>>> Stashed changes
 router.get('/register/student', (req, res) => {
     res.render('users/register', { userType: 'student' });
 });
 
+<<<<<<< Updated upstream
 router.get('/register/instructor', async (req, res) => {
     console.log("instructor data:", await Instructor.find({}));
     res.render('users/register', { userType: 'instructor' });
@@ -37,6 +46,8 @@ router.get('/login/instructor', (req, res) => {
     res.render('users/login', { userType: 'instructor', checkstudent: 'unchecked', checkinst: 'checked' });
 });
 
+=======
+>>>>>>> Stashed changes
 router.post('/register/student', catchAsync(async (req, res, next) => {
     try {
         const { name, sirname, student_id, email, password } = req.body;
