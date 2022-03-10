@@ -16,6 +16,9 @@
     <%- include('./partials/navbar')%>
         <div class="editor">
             <div class="editor__wrapper">
+                <div class="floating mb-3">
+                    <button class="editor__btn float-end screen_record" id="record">Record</button>
+                </div>
                 <div class="panel">
                     <div class="drop-language">
                         <form>
@@ -91,5 +94,8 @@
         <!-- Custom Scripts -->
         <script src="/js/editor.js"></script>
         <script src="/js/editor-console.js"></script>
+
+        <!-- Custom Script for screen record -->
+        <script src="/js/screen-recording.js"></script>
 
 </body>
