@@ -90,6 +90,13 @@ html, body {
     cursor: pointer;
 }
 
+#record{
+  margin-right: .8em;
+  padding: 5px;
+  border: 2px solid red;
+  color: red;
+}
+
 .editor__console {
     background-color: #fff;
     width: 100%;
