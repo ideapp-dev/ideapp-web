@@ -16,15 +16,9 @@ router.get('/register', (req, res) => {
     res.render('users/choose', { to: 'register' });
 });
 
-router.get('/profile', (req, res) => {
-    res.render('users/profile', { title: 'profile' });
-});
-
-// /register/student
 router.get('/register/student', (req, res) => {
     res.render('users/register', { userType: 'student' });
 });
-
 
 router.get('/register/instructor', async (req, res) => {
     console.log("instructor data:", await Instructor.find({}));
@@ -42,7 +36,6 @@ router.get('/login/student', (req, res) => {
 router.get('/login/instructor', (req, res) => {
     res.render('users/login', { userType: 'instructor', checkstudent: 'unchecked', checkinst: 'checked' });
 });
-
 
 router.post('/register/student', catchAsync(async (req, res, next) => {
     try {
@@ -83,15 +76,11 @@ router.post('/register/instructor', catchAsync(async (req, res, next) => {
 
 router.post('/login/student', passport.authenticate('student-auth', { failureFlash: true, failureRedirect: '/login/student' }), (req, res) => {
     req.flash('success', 'Welcome back!');
-    // const redirectUrl = req.session.returnTo || '/';
-    // delete req.session.returnTo;
     res.redirect("/");
 })
 
 router.post('/login/instructor', passport.authenticate('instructor-auth', { failureFlash: true, failureRedirect: '/login/instructor' }), (req, res) => {
     req.flash('success', 'Welcome back!');
-    // const redirectUrl = req.session.returnTo || '/';
-    // delete req.session.returnTo;
     res.redirect("/");
 })
 
