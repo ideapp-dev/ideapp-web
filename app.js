@@ -12,6 +12,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcrypt');
+const cors = require("cors");
 
 //--- db
 const Student = require('./models/student');
@@ -33,7 +34,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(morgan('tiny'));
-
 
 const sessionConfig = {
     secret: 'thisshouldbeabettersecret!',

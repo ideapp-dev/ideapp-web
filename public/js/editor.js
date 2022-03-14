@@ -13,6 +13,11 @@ let codeEditor = ace.edit("editorCode");
 let defaultCode = '';
 let consoleMessages = [];
 
+//Setup Compiler
+const JDOODLE_ENDPOINT = "https://api.jdoodle.com/v1/execute";
+const JDOODLE_CLIENT_ID = "76f090eecbfe8c99a9a24dc18c90d020";
+const JDOODLE_CLIENT_SECRET = "2205bcdd4aaa033be8f7d679a8b59e13afb63040af48414843ec851e3b8f5350";
+
 let editorLib = {
     clearConsoleScreen() {
         consoleMessages.length = 0;
@@ -31,7 +36,6 @@ let editorLib = {
             newLogText.textContent = `> ${log.message}`;
 
             newLogItem.appendChild(newLogText);
-
             consoleLogList.appendChild(newLogItem);
         })
     },
@@ -66,14 +70,30 @@ executeCodeBtn.addEventListener('click', () => {
     const userCode = codeEditor.getValue();
 
     // Run the user code
-    try {
-        new Function(userCode)();
-    } catch (err) {
-        console.error(err);
-    }
+    // try {
+    //     new Function(userCode)();
+    // } catch (err) {
+    //     console.error(err);
+    // }
 
-    // Print to the console
-    editorLib.printToConsole();
+    axios({
+        method: 'post',
+        url: "https://cors-anywhere.herokuapp.com/" + JDOODLE_ENDPOINT,
+        data: {
+            script: userCode,
+            language: "java",
+            versionIndex: 4,
+            clientId: JDOODLE_CLIENT_ID,
+            clientSecret: JDOODLE_CLIENT_SECRET
+        },
+    })
+        .then((response) => {
+            console.log(response.data.output);
+            editorLib.printToConsole();
+
+        }, (error) => {
+            console.log(error);
+        });
 });
 
 resetCodeBtn.addEventListener('click', () => {
