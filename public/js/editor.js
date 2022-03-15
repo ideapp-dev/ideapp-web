@@ -17,6 +17,7 @@ let consoleMessages = [];
 const JDOODLE_ENDPOINT = "https://api.jdoodle.com/v1/execute";
 const JDOODLE_CLIENT_ID = "76f090eecbfe8c99a9a24dc18c90d020";
 const JDOODLE_CLIENT_SECRET = "2205bcdd4aaa033be8f7d679a8b59e13afb63040af48414843ec851e3b8f5350";
+const PROXY_CORS = "https://cors-anywhere.herokuapp.com/";
 
 const langs = [
     {
@@ -131,7 +132,7 @@ executeCodeBtn.addEventListener('click', () => {
     else {
         axios({
             method: 'post',
-            url: "https://cors-anywhere.herokuapp.com/" + JDOODLE_ENDPOINT,
+            url: PROXY_CORS + JDOODLE_ENDPOINT,
             data: {
                 script: userCode,
                 language: langObj.name,
