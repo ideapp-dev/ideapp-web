@@ -97,6 +97,25 @@ html, body {
   color: red;
 }
 
+#restrictions{
+    margin-top: 1em;
+}
+
+.funcs{
+    word-wrap: break-word;
+}
+
+.funcs ul{
+    padding-left: 8% ;
+}
+
+.libs{
+    word-wrap: break-word;
+}
+
+.libs ul{
+    padding-left: 8% ;
+}
 .editor__console {
     background-color: #fff;
     width: 100%;

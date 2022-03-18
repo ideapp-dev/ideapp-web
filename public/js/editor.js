@@ -76,12 +76,12 @@ let editorLib = {
             consoleLogList.removeChild(consoleLogList.firstChild);
         }
     },
-    printToConsole() {
+    printToConsole(logStyle = 'log log--default') {
         consoleMessages.forEach(log => {
             const newLogItem = document.createElement('li');
             const newLogText = document.createElement('pre');
 
-            newLogText.className = 'log log--default';
+            newLogText.className = logStyle;
             newLogText.textContent = `> ${log.message}`;
 
             newLogItem.appendChild(newLogText);
@@ -108,6 +108,31 @@ let editorLib = {
     }
 }
 
+//search for restricted word
+const wordInString = (s, word) => new RegExp('\\b' + word + '\\b', 'i').test(s);
+
+const detectRestrictions = function (userCode) {
+    //detect restricted functions
+    var ul = document.getElementById("funcs");
+    var items = ul.getElementsByTagName("li");
+    for (var i = 0; i < items.length; ++i) {
+        // do something with items[i], which is a <li> element
+        if (wordInString(userCode, items[i].innerText))
+            console.log(items[i].innerText + " is restricted!");
+    }
+
+    //detect restricted libs
+    var ul = document.getElementById("libs");
+    var items = ul.getElementsByTagName("li");
+    for (var i = 0; i < items.length; ++i) {
+        // do something with items[i], which is a <li> element
+        if (wordInString(userCode, items[i].innerText))
+            console.log(items[i].innerText + " is restricted!");
+    }
+
+    editorLib.printToConsole('log log--error');
+}
+
 // Events
 executeCodeBtn.addEventListener('click', () => {
     // Clear console messages
@@ -119,35 +144,41 @@ executeCodeBtn.addEventListener('click', () => {
     //Get selected language for compiler
     let langObj = getCompilerLang();
 
-    if (langObj.name == 'javascript') {
-        // Run the user code
-        try {
-            new Function(userCode)();
-        } catch (err) {
-            console.error(err);
+    //detect restricted usages
+    detectRestrictions(userCode);
+
+    //if no restricted usage and user code is not empty
+    if (consoleMessages.length == 0 && userCode.length > 0) {
+        if (langObj.name == 'javascript') {
+            // Run the user code
+            try {
+                new Function(userCode)();
+            } catch (err) {
+                console.error(err);
+            }
+
+            editorLib.printToConsole();
         }
+        else {
+            axios({
+                method: 'post',
+                url: PROXY_CORS + JDOODLE_ENDPOINT,
+                data: {
+                    script: userCode,
+                    language: langObj.name,
+                    versionIndex: langObj.version,
+                    clientId: JDOODLE_CLIENT_ID,
+                    clientSecret: JDOODLE_CLIENT_SECRET
+                },
+            })
+                .then((response) => {
+                    console.log(response.data.output);
+                    editorLib.printToConsole();
 
-        editorLib.printToConsole();
-    }
-    else {
-        axios({
-            method: 'post',
-            url: PROXY_CORS + JDOODLE_ENDPOINT,
-            data: {
-                script: userCode,
-                language: langObj.name,
-                versionIndex: langObj.version,
-                clientId: JDOODLE_CLIENT_ID,
-                clientSecret: JDOODLE_CLIENT_SECRET
-            },
-        })
-            .then((response) => {
-                console.log(response.data.output);
-                editorLib.printToConsole();
-
-            }, (error) => {
-                console.log(error);
-            });
+                }, (error) => {
+                    console.log(error);
+                });
+        }
     }
 
 });
