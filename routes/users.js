@@ -8,6 +8,8 @@ const bcrypt = require('bcrypt');
 const { isLoggedIn } = require('../middleware');
 
 
+
+
 router.get('/', async (req, res) => {
     res.render('home', { title: 'home' });
 });
@@ -86,7 +88,43 @@ router.post('/login/instructor', passport.authenticate('instructor-auth', { fail
 
 router.get('/profile', isLoggedIn, (req, res) => {
     let fullname = req.user[0].name + " " + req.user[0].sirname;
-    res.render('users/profile', { user: req.user, fullname: fullname });
+    res.render('users/profile', { user: req.user[0], fullname: fullname });
+});
+
+router.get('/profile/:id/edit', isLoggedIn, (req, res) => {
+    let fullname = req.user[0].name + " " + req.user[0].sirname;
+    res.render('users/profile-edit', { user: req.user[0], fullname: fullname });
+});
+
+router.put('/profile/:id', isLoggedIn, async (req, res) => {
+    const { password } = req.body;
+
+    const salt = await bcrypt.genSalt();
+    const newHashedPassword = await bcrypt.hash(password, salt)
+
+    let userType = '';
+    let checkstudent = '';
+    let checkinst = '';
+
+    let user = await Student.findById(req.params.id);
+
+    if (user == null) {
+        user = await Instructor.findById(req.params.id);
+        userType = 'instructor'
+        checkstudent = 'unchecked';
+        checkinst = 'checked';
+    }
+    else {
+        userType = 'student';
+        checkstudent = 'checked';
+        checkinst = 'unchecked';
+    }
+
+    user.password = newHashedPassword;
+    await user.save();
+
+    res.render('users/login', { userType: userType, checkstudent: checkstudent, checkinst: checkinst, success: "Your password is successfully changed!" });
+
 });
 
 router.get('/logout', (req, res) => {
