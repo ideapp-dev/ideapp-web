@@ -16,7 +16,7 @@
   <%- include('../partials/navbar')%>
     <main class="login-form card">
       <div class="card-body">
-        <form action="/profile/<%=user._id%>/edit" method="GET">
+        <form action="/profile/<%=user._id%>?_method=PUT" method="POST">
           <img src="/images/default.jpg" class="mb-3 rounded" height="144" width="144">
           <h3>Profile</h3>
           <div class="form-floating mb-3">
@@ -30,7 +30,7 @@
             <label for="email">Mail</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control" placeholder="Password" name="password" id="password" disabled />
+            <input type="password" class="form-control" placeholder="Password" name="password" id="password" />
             <label for="password">Password</label>
           </div>
           <% if(user.student_id) {%>
@@ -40,7 +40,7 @@
               <label for="student_id">Student id</label>
             </div>
             <% } %>
-              <button class="w-100 btn btn-lg btn-primary mt-3">Edit</Input>
+              <button class="w-100 btn btn-lg btn-primary mt-3">Save</Input>
         </form>
       </div>
       <%- include('../partials/footer')%>
