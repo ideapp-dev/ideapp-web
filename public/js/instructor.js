@@ -1,5 +1,5 @@
 function addCard() {
-    if (document.getElementById('course_code').value && document.getElementById('course_name').value) {
+    if (document.getElementById('course_code').value && document.getElementById('course_description').value) {
         const card = document.createElement("div");
         const card_inner = document.createElement("div");
         const card_top = document.createElement("div");
@@ -18,7 +18,7 @@ function addCard() {
         p1.className = "title";
         p1.style.textAlign = "center";
         p1.textContent = document.getElementById('course_code').value;
-        p2.textContent = document.getElementById('course_name').value;
+        p2.textContent = document.getElementById('course_description').value;
 
         card_info.appendChild(p1);
         card_info.appendChild(p2);

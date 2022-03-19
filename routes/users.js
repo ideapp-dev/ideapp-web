@@ -4,8 +4,11 @@ const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
 const Student = require('../models/student');
 const Instructor = require('../models/instructor');
+const Lesson = require('../models/lesson');
 const bcrypt = require('bcrypt');
 const { isLoggedIn } = require('../middleware');
+const lesson = require('../models/lesson');
+const instructor = require('../models/instructor');
 
 router.get('/', async (req, res) => {
     res.render('home', { title: 'home' });
@@ -127,6 +130,16 @@ router.put('/profile/:id', isLoggedIn, async (req, res) => {
 router.get('/logout', (req, res) => {
     req.logout();
     req.flash('success', "Goodbye!");
+    res.redirect('/');
+})
+
+router.get('/instructor-main', async (req, res) => {
+    const lectures = await Lesson.find({});
+    res.render('users/instructor', { lectures: lectures })
+})
+
+router.post('/lecture', (req, res) => {
+    console.log("lecture created!");
     res.redirect('/');
 })
 

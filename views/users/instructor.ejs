@@ -14,21 +14,25 @@
         <div class="wrapper">
             <div class="header">Lectures</div>
             <div class="cards_wrap" id="cards">
-                <div class="card_item">
-                    <div class="card_inner">
-                        <div class="card_top">
-                            <img src="/images/course.png" alt="card" />
-                        </div>
-                        <div class="card_bottom">
-                            <div class="card_info">
-                                <p class="title" style="text-align: center">BIL-441</p>
-                                <p>
-                                    Lecture Description
-                                </p>
+                <% for(var i=0; i < lectures.length; i++) { %>
+                    <div class="card_item">
+                        <div class="card_inner">
+                            <div class="card_top">
+                                <img src="/images/course.png" alt="card" />
+                            </div>
+                            <div class="card_bottom">
+                                <div class="card_info">
+                                    <p class="title" style="text-align: center">
+                                        <%=lectures[i].name%>
+                                    </p>
+                                    <p>
+                                        <%=lectures[i].description%>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <% } %>
             </div>
             <div class="footer">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -41,22 +45,35 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-body">
-                                <form id="my-form">
+                                <form action="/lecture" method="POST">
                                     <div class="form-group">
-                                        <label for="course_code" style="color: darkred">Lecture Code</label><input
-                                            type="text" class="form-control" id="course_code" placeholder="Lecture Code"
-                                            required />
+                                        <label for="course_code" style="color: darkred">Lecture Code</label>
+                                        <input type="text" class="form-control" id="course_code" name="code"
+                                            placeholder="etc: BIL XXX" required />
                                     </div>
                                     <br>
                                     <div class="form-group">
-                                        <label for="course_name" style="color: darkred">Lecture Name</label><input
-                                            type="text" class="form-control" id="course_name" placeholder="Lecture Name"
-                                            required />
+                                        <label for="course_name" style="color: darkred">Lecture Name</label>
+                                        <input type="text" class="form-control" id="course_code" name="name"
+                                            placeholder="etc: Introduction to programming" required />
                                     </div>
                                     <br>
-                                    <button type="submit" id="submit" class="btn btn-primary" data-dismiss="modal"
-                                        onclick="addCard()">Add</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <div class="form-group">
+                                        <label for="course_description" style="color: darkred">Lecture
+                                            Description</label>
+                                        <input type="text" class="form-control" id="course_description"
+                                            name="description" placeholder="etc: Programming basics for CS students" />
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="course_credit" style="color: darkred">Credit</label>
+                                        <input type="text" class="form-control" id="course_credit" name="credit"
+                                            placeholder="etc: 3" required />
+                                    </div>
+                                    <br>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-default btn-success" type="submit" name="submit"
+                                        value="Submit" onclick="addCard()">Save</button>
                                 </form>
                             </div>
                         </div>
