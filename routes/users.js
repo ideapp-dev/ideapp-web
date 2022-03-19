@@ -83,7 +83,7 @@ router.post('/login/student', passport.authenticate('student-auth', { failureFla
 
 router.post('/login/instructor', passport.authenticate('instructor-auth', { failureFlash: true, failureRedirect: '/login/instructor' }), (req, res) => {
     req.flash('success', 'Welcome back!');
-    res.redirect("/");
+    res.redirect("/instructor-main");
 })
 
 router.get('/profile', isLoggedIn, (req, res) => {
@@ -138,9 +138,13 @@ router.get('/instructor-main', async (req, res) => {
     res.render('users/instructor', { lectures: lectures })
 })
 
-router.post('/lecture', (req, res) => {
-    console.log("lecture created!");
-    res.redirect('/');
+router.post('/lecture', async (req, res) => {
+    const { code, name, description, credit } = req.body;
+    const currentUserFullName = req.user[0].name + " " + req.user[0].sirname;
+    const newLesson = new Lesson({ code, name, description, credit, faculty: 'Computer Engineering', instructor: currentUserFullName, semester: 'Spring 2022' });
+    await newLesson.save();
+
+    res.redirect('/instructor-main');
 })
 
 

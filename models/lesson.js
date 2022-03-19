@@ -41,7 +41,6 @@ const LessonSchema = new Schema({
 
     time: {
         type: Object,
-        required: true
     }
 
 }, { collection: 'Lesson' });
