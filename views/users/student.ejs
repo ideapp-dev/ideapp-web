@@ -48,11 +48,10 @@
                             <div class="modal-body">
                                 <form action="/enroll" method="POST" autocomplete="off">
                                     <div class="form-group">
-                                        <label for="course_code" style="color: darkred">Course Code</label>
-                                        <div class="autocomplete">
-                                            <input type="text" class="form-control" id="course_code"
-                                                placeholder="etc: BILXXX" name="code" required />
+                                        <div>
+                                            <input type="text" id="input" placeholder="Type a course code..." />
                                         </div>
+                                        <ul class="list"></ul>
                                     </div>
                                     <br>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
