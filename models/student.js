@@ -1,3 +1,4 @@
+const { array } = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -27,6 +28,9 @@ const StudentSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    lessons_taken: {
+        type: [{ type: Schema.ObjectId, ref: 'Lesson' }]
     }
 });
 
