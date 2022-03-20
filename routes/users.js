@@ -139,11 +139,16 @@ router.get('/instructor-main', isLoggedIn, async (req, res) => {
 })
 
 router.get('/student-main', isLoggedIn, async (req, res) => {
+    let currentStudent = await Student.findById(req.user[0]._id);
+
+    let studentPopulated = await currentStudent.populate("lessons_taken");
+    let enrolledLessons = studentPopulated.lessons_taken;
+
     let lectures = await Lesson.find({});
     let lectureCodes = [];
     lectures.forEach(lecture => lectureCodes.push(lecture.code));
 
-    res.render('users/student', { lectureCodes: lectureCodes });
+    res.render('users/student', { lectureCodes: lectureCodes, enrolledLessons: enrolledLessons });
 })
 
 router.post('/lecture', isLoggedIn, async (req, res) => {
@@ -153,6 +158,17 @@ router.post('/lecture', isLoggedIn, async (req, res) => {
     await newLesson.save();
 
     res.redirect('/instructor-main');
+})
+
+router.post('/enroll', isLoggedIn, async (req, res) => {
+    const { code } = req.body;
+    let newLecture = await Lesson.findOne({ code: code });
+
+    let currentStudent = await Student.findById(req.user[0]._id);
+    currentStudent.lessons_taken.push(newLecture);
+    await currentStudent.save();
+
+    res.redirect('/student-main');
 })
 
 
