@@ -160,6 +160,17 @@ router.post('/lecture', isLoggedIn, async (req, res) => {
     res.redirect('/instructor-main');
 })
 
+router.post('/enroll', isLoggedIn, async (req, res) => {
+    const { code } = req.body;
+    let newLecture = await Lesson.findOne({ code: code });
+
+    let currentStudent = await Student.findById(req.user[0]._id);
+    currentStudent.lessons_taken.push(newLecture);
+    await currentStudent.save();
+
+    res.redirect('/student-main');
+})
+
 
 
 module.exports = router;
