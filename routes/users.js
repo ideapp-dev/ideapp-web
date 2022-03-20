@@ -139,8 +139,11 @@ router.get('/instructor-main', isLoggedIn, async (req, res) => {
 })
 
 router.get('/student-main', isLoggedIn, async (req, res) => {
-    const lectures = await Lesson.find({});
-    res.render('users/student');
+    let lectures = await Lesson.find({});
+    let lectureCodes = [];
+    lectures.forEach(lecture => lectureCodes.push(lecture.code));
+
+    res.render('users/student', { lectureCodes: lectureCodes });
 })
 
 router.post('/lecture', isLoggedIn, async (req, res) => {
