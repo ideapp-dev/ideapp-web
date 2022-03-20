@@ -78,7 +78,7 @@ router.post('/register/instructor', catchAsync(async (req, res, next) => {
 
 router.post('/login/student', passport.authenticate('student-auth', { failureFlash: true, failureRedirect: '/login/student' }), (req, res) => {
     req.flash('success', 'Welcome back!');
-    res.redirect("/");
+    res.redirect("/student-main");
 })
 
 router.post('/login/instructor', passport.authenticate('instructor-auth', { failureFlash: true, failureRedirect: '/login/instructor' }), (req, res) => {
@@ -136,6 +136,11 @@ router.get('/logout', (req, res) => {
 router.get('/instructor-main', isLoggedIn, async (req, res) => {
     const lectures = await Lesson.find({});
     res.render('users/instructor', { lectures: lectures })
+})
+
+router.get('/student-main', isLoggedIn, async (req, res) => {
+    const lectures = await Lesson.find({});
+    res.render('users/student');
 })
 
 router.post('/lecture', isLoggedIn, async (req, res) => {
