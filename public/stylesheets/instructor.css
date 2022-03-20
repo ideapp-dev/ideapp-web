@@ -100,10 +100,6 @@ img {
     margin-bottom: 5px;
 }
 
-.cards_wrap .card_bottom .card_creator {
-    text-align: center;
-}
-
 @media (max-width: 1024px) {
     .cards_wrap .card_item {
         width: 33.3%;
