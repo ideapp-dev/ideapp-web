@@ -133,12 +133,12 @@ router.get('/logout', (req, res) => {
     res.redirect('/');
 })
 
-router.get('/instructor-main', async (req, res) => {
+router.get('/instructor-main', isLoggedIn, async (req, res) => {
     const lectures = await Lesson.find({});
     res.render('users/instructor', { lectures: lectures })
 })
 
-router.post('/lecture', async (req, res) => {
+router.post('/lecture', isLoggedIn, async (req, res) => {
     const { code, name, description, credit } = req.body;
     const currentUserFullName = req.user[0].name + " " + req.user[0].sirname;
     const newLesson = new Lesson({ code, name, description, credit, faculty: 'Computer Engineering', instructor: currentUserFullName, semester: 'Spring 2022' });
