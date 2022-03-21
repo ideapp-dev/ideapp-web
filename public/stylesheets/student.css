@@ -1,17 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Nunito", sans-serif;
-}
-
 body {
-    background: #eedfcc;
-    background-image: url("/images/home-background.jpg");
-    color: #555555;
-    font-size: 14px;
+    background-image: url("../images/home-background.jpg");
+    background-size: 100% 100%;
 }
 
 img {
@@ -20,18 +9,25 @@ img {
     height: 100%;
 }
 
+.wrapper-wrapper {
+    margin: auto;
+    width: 50%;
+    height: 70%;
+}
+
 .wrapper {
     background: #eedfcc;
     color: #555555;
-    width: 50%;
-    margin: 20px auto;
+    width: 100%;
+    height: 80%;
+    overflow:auto;
 }
 
 
-.wrapper .header{
+.wrapper-header{
     width: 100%;
-    height: 50px;
-    background: #e36686;
+    height: 60px;
+    background: #457b9d6b;
     color: #fff;
     text-align: center;
     display: flex;
@@ -43,54 +39,18 @@ img {
     font-weight: 900;
 }
 
-.wrapper .footer{
+.wrapper-footer{
     width: 100%;
-    height: 50px;
+    height: 60px;
+    background: #457b9d6b;
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.form-popup {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    right: 15px;
-    border: 3px solid #f1f1f1;
-    z-index: 9;
-}
-
-.form-container {
-    max-width: 300px;
-    padding: 10px;
-    background-color: white;
-}
-
-.form-container input[type=text] {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
-}
-
-.form-container input[type=text]:focus {
-    background-color: #ddd;
-    outline: none;
-}
-
-.form-container .btn {
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom:10px;
-    opacity: 0.8;
-}
-
-.form-container .btn:hover, .open-button:hover {
-    opacity: 1;
+.addbtn{
+    font-size: 20px;
 }
 
 .cards_wrap {
@@ -133,35 +93,6 @@ img {
     color: #0071bc;
     font-size: 18px;
     margin-bottom: 5px;
-}
-
-.cards_wrap .card_bottom .card_creator {
-    text-align: center;
-}
-
-input[type="text"] {
-  width: 100%;
-  padding: 15px 10px;
-  border: none;
-  border-bottom: 1px solid #645979;
-  outline: none;
-  border-radius: 5px 5px 0 0;
-  background-color: #ffffff;
-  font-size: 16px;
-}
-ul {
-  list-style: none;
-}
-.list {
-  width: 100%;
-  background-color: #628412;
-  border-radius: 0 0 5px 5px;
-}
-.list-items {
-  padding: 10px 5px;
-}
-.list-items:hover {
-  background-color: #2f5a1a;
 }
 
 @media (max-width: 1024px) {
