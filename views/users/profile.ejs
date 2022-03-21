@@ -12,9 +12,9 @@
   <link rel="stylesheet" href="/stylesheets/profile.css">
 </head>
 
-<body class="text-center d-flex flex-column vh-100">
+<body class="d-flex flex-column vh-100">
   <%- include('../partials/navbar')%>
-    <main class="login-form card">
+    <main class="text-center login-form card">
       <div class="card-body">
         <form action="/profile/<%=user._id%>/edit" method="GET">
           <img src="/images/default.jpg" class="mb-3 rounded" height="144" width="144">
