@@ -134,7 +134,7 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/instructor-main', isLoggedIn, async (req, res) => {
-    const lectures = await Lesson.find({});
+    const lectures = await Lesson.find({ instructor: req.user[0]._id });
     res.render('users/instructor', { lectures: lectures })
 })
 
@@ -153,9 +153,12 @@ router.get('/student-main', isLoggedIn, async (req, res) => {
 
 router.post('/lecture', isLoggedIn, async (req, res) => {
     const { code, name, description, credit } = req.body;
-    const currentUserFullName = req.user[0].name + " " + req.user[0].sirname;
-    const newLesson = new Lesson({ code, name, description, credit, faculty: 'Computer Engineering', instructor: currentUserFullName, semester: 'Spring 2022' });
-    await newLesson.save();
+    const currentInstructor = req.user[0];
+    const newLecture = new Lesson({ code, name, description, credit, faculty: 'Computer Engineering', instructor: currentInstructor._id, semester: 'Spring 2022' });
+    await newLecture.save();
+
+    currentInstructor.lessons_given.push(newLecture);
+    await currentInstructor.save();
 
     res.redirect('/instructor-main');
 })

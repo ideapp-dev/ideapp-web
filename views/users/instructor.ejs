@@ -15,27 +15,32 @@
         <div class="wrapper-wrapper">
             <div class="wrapper-header">Lectures</div>
             <div class="wrapper">
-                <div class="cards_wrap" id="cards">
-                    <% for(var i=0; i < lectures.length; i++) { %>
-                        <div class="card_item">
-                            <div class="card_inner">
-                                <div class="card_top">
-                                    <img src="/images/course.png" alt="card" />
-                                </div>
-                                <div class="card_bottom">
-                                    <div class="card_info">
-                                        <p class="title" style="text-align: center">
-                                            <%=lectures[i].name%>
-                                        </p>
-                                        <p>
-                                            <%=lectures[i].description%>
-                                        </p>
+                <% if(lectures.length==0){ %>
+                    <div class="card_item">
+                        <h1 style="text-align: center">There are no courses registered under your name.</h1>
+                    </div>
+                    <% } %>
+                        <div class="cards_wrap" id="cards">
+                            <% for(var i=0; i < lectures.length; i++) { %>
+                                <div class="card_item">
+                                    <div class="card_inner">
+                                        <div class="card_top">
+                                            <img src="/images/course.png" alt="card" />
+                                        </div>
+                                        <div class="card_bottom">
+                                            <div class="card_info">
+                                                <p class="title" style="text-align: center">
+                                                    <%=lectures[i].name%>
+                                                </p>
+                                                <p>
+                                                    <%=lectures[i].description%>
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <% } %>
                         </div>
-                        <% } %>
-                </div>
             </div>
             <div class="wrapper-footer">
                 <button type="button" class="addbtn btn btn-success" data-toggle="modal" data-target="#exampleModal">
