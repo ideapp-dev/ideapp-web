@@ -3,6 +3,7 @@ const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const Student = require('../models/student');
 const Lesson = require('../models/lesson');
+const Exam = require('../models/exam');
 const { isLoggedIn } = require('../middleware');
 
 
@@ -28,6 +29,13 @@ router.post('/enroll', isLoggedIn, async (req, res) => {
     await currentStudent.save();
 
     res.redirect('/student-main');
+})
+
+router.get('/exam/:id', async (req, res) => {
+    const { id } = req.params;
+    const exam = await Exam.findById(id);
+
+    res.render('exam-editor', { exam: exam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs });
 })
 
 
