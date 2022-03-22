@@ -142,6 +142,11 @@
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="/js/editor.js"></script>
         <script src="/js/editor-console.js"></script>
+        <script>
+            var getTest = '<%- exam %>'
+            var parsed = JSON.parse(getTest);
+            codeEditor.setValue(parsed.questions[0]);
+        </script>
 
         <!-- Custom Script for screen record -->
         <script src="/js/screen-recording.js"></script>
