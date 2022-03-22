@@ -21,6 +21,8 @@ const Instructor = require('./models/instructor');
 
 const userRoutes = require('./routes/users');
 const aceRoutes = require('./routes/editor');
+const studentRoutes = require('./routes/studentmain');
+const instructorRoutes = require('./routes/instructormain');
 
 connectDB();
 
@@ -76,6 +78,8 @@ app.use((req, res, next) => {
 
 app.use('/', userRoutes);
 app.use('/playground', aceRoutes);
+app.use('/student-main', studentRoutes);
+app.use('/instructor-main', instructorRoutes);
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
