@@ -79,6 +79,11 @@
                             </select>
                         </form>
                     </div>
+                    <div class="time">
+                        <p style="margin-left: 8rem; border:3px solid red; padding-left:5px; padding-right: 5px;">Time: 
+                            <span id="remaining" style="color: red;"></span>
+                        </p>
+                    </div>
                     <div class="appereance">
                         <div class="drop-theme">
                             <form>
@@ -146,6 +151,10 @@
             var getTest = '<%- exam %>'
             var parsed = JSON.parse(getTest);
             codeEditor.setValue(parsed.questions[0]);
+
+            examTimer("Mar 23, 2022 19:00:00");
+           
+
         </script>
 
         <!-- Custom Script for screen record -->
