@@ -153,22 +153,15 @@
         <script>
             var ex = '<%- exam %>'
             var examObj = JSON.parse(ex);
-   
-            examTimer("Mar 23, 2022 19:00:00");
-
-            const questionsDiv = document.getElementsByClassName('questions')[0];
-              
-            for(let i = 0; i < examObj.questions.length; i++){
-                var a = document.createElement('a');
-                var linkText = document.createTextNode(`q${i+1}`);
-                a.appendChild(linkText);
-                a.title = i+1;
-                a.href = "/student-main/exam/" + examObj._id + "/" + `${i+1}`;
-
-                questionsDiv.appendChild(a);
-            }
             
-            //get selected question number to ide
+            //show remaning time
+            const end_time = examObj.end_time;
+            examTimer(end_time);
+
+            //set question selections and links on ide
+            setQuestions();
+ 
+            //set selected question content to ide
             const qnum = '<%= qnum %>'
             codeEditor.setValue(examObj.questions[qnum-1]);
             

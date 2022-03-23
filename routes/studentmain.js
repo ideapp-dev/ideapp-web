@@ -4,7 +4,7 @@ const catchAsync = require('../utils/catchAsync');
 const Student = require('../models/student');
 const Lesson = require('../models/lesson');
 const Exam = require('../models/exam');
-const { isLoggedIn } = require('../middleware');
+const { isLoggedIn, isExamTimeOn } = require('../middleware');
 
 
 router.get('/', isLoggedIn, async (req, res) => {
@@ -34,10 +34,11 @@ router.post('/enroll', isLoggedIn, async (req, res) => {
 
 router.get('/exam/:id/:q', async (req, res) => {
     const { id, q} = req.params;
-    console.log(q);
     const exam = await Exam.findById(id);
-    let stringified =  JSON.stringify(exam);
-    var escaped = stringified.replace(/[\\]/g, '\\\\')
+
+    if(isExamTimeOn(exam)){
+        let stringified =  JSON.stringify(exam);
+        var escaped = stringified.replace(/[\\]/g, '\\\\')
                                 .replace(/[\"]/g, '\\\"')
                                 .replace(/[\/]/g, '\\/')
                                 .replace(/[\b]/g, '\\b')
@@ -47,7 +48,10 @@ router.get('/exam/:id/:q', async (req, res) => {
                                 .replace(/[\t]/g, '\\t');
 
 
-    res.render('exam-editor', { exam: escaped, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum: q});
+        res.render('exam-editor', { exam: escaped, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum: q});
+    }
+    else
+        res.send("exam is not started yet!");
 })
 
 

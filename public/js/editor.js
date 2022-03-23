@@ -161,6 +161,19 @@ var examTimer = function(date){
     }, 1000)
 }
 
+const setQuestions = function(){
+    const questionsDiv = document.getElementsByClassName('questions')[0];
+              
+    for(let i = 0; i < examObj.questions.length; i++){
+        var a = document.createElement('a');
+        var linkText = document.createTextNode(`q${i+1}`);
+        a.appendChild(linkText);
+        a.title = i+1;
+        a.href = "/student-main/exam/" + examObj._id + "/" + `${i+1}`;
+
+        questionsDiv.appendChild(a);
+    }
+}
 
 // Events
 executeCodeBtn.addEventListener('click', () => {

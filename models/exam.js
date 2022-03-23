@@ -7,12 +7,12 @@ const ExamSchema = new Schema({
         required: true
     },
 
-    date: {
-        type: Date,
+    start_time: {
+        type: String,
         required: true
     },
 
-    total_time: {
+    end_time: {
         type: String,
         required: true,
     },
