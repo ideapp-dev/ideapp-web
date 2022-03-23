@@ -20,6 +20,7 @@ html, body {
     background-size: 100% 100%;
 }
 
+
 .editor {
     height: 100%;
     width: 100%;
@@ -59,8 +60,6 @@ html, body {
     margin-right: 1rem;
 }
 
-
-
 .editor__body {
     flex: 1;
 }
@@ -89,6 +88,33 @@ html, body {
     width: 100px;
     cursor: pointer;
 }
+
+
+.editor .questions{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 50%;
+    height: 5%;
+    background-color: rgb(61, 54, 54);
+    border: 3px solid rgb(61, 54, 54);
+}
+
+.editor .questions a{
+    margin-left: 1em;
+    outline: none;
+    text-decoration: none;
+    padding: 3px;
+    border: 3px solid rgb(235, 148, 55) ;
+    color: rgb(235, 148, 55)
+}
+
+.editor .questions a:hover {
+    background: rgb(235, 148, 55);
+    color: rgb(61, 54, 54);
+}
+  
 
 #record{
   margin-right: .8em;

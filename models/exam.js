@@ -19,7 +19,7 @@ const ExamSchema = new Schema({
 
     scores: [{ student_id: String, value: Number }],
 
-    configs: { restrictedFuncs: [{ type: String }], restrictedLibs: [{ type: String }] },
+    configs: { restrictedFuncs: [{ type: String }], restrictedLibs: [{ type: String }], language: String},
 
     questions: [{ type: String }]
 

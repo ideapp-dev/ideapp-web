@@ -31,8 +31,10 @@ router.post('/enroll', isLoggedIn, async (req, res) => {
     res.redirect('/student-main');
 })
 
-router.get('/exam/:id', async (req, res) => {
-    const { id } = req.params;
+
+router.get('/exam/:id/:q', async (req, res) => {
+    const { id, q} = req.params;
+    console.log(q);
     const exam = await Exam.findById(id);
     let stringified =  JSON.stringify(exam);
     var escaped = stringified.replace(/[\\]/g, '\\\\')
@@ -45,7 +47,7 @@ router.get('/exam/:id', async (req, res) => {
                                 .replace(/[\t]/g, '\\t');
 
 
-    res.render('exam-editor', { exam: escaped, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs });
+    res.render('exam-editor', { exam: escaped, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum: q});
 })
 
 

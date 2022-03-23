@@ -15,6 +15,9 @@
 <body>
     <%- include('./partials/navbar')%>
         <div class="editor">
+            <div class="questions">
+                <!-- <button type="button" class="btn btn-secondary">q1</button> -->
+            </div>
             <div class="editor__wrapper">
                 <div class="mb-3">
                     <button class="editor__btn float-end screen_record" id="record">Record</button>
@@ -70,10 +73,10 @@
                     <div class="drop-language">
                         <form>
                             Language:
-                            <select id="selectLanguage">
+                            <select id="selectLanguage" disabled>
                                 <option value="java">Java</option>
                                 <option value="javascript">Javascript</option>
-                                <option value="python">Python</option>
+                                <option value="python" >Python</option>
                                 <option value="c_cpp">C</option>
                                 <option value="c_cpp">C++</option>
                             </select>
@@ -148,12 +151,31 @@
         <script src="/js/editor.js"></script>
         <script src="/js/editor-console.js"></script>
         <script>
-            var getTest = '<%- exam %>'
-            var parsed = JSON.parse(getTest);
-            codeEditor.setValue(parsed.questions[0]);
-
+            var ex = '<%- exam %>'
+            var examObj = JSON.parse(ex);
+   
             examTimer("Mar 23, 2022 19:00:00");
-           
+
+            const questionsDiv = document.getElementsByClassName('questions')[0];
+              
+            for(let i = 0; i < examObj.questions.length; i++){
+                var a = document.createElement('a');
+                var linkText = document.createTextNode(`q${i+1}`);
+                a.appendChild(linkText);
+                a.title = i+1;
+                a.href = "/student-main/exam/" + examObj._id + "/" + `${i+1}`;
+
+                questionsDiv.appendChild(a);
+            }
+            
+            //get selected question number to ide
+            const qnum = '<%= qnum %>'
+            codeEditor.setValue(examObj.questions[qnum-1]);
+            
+            //set configured language for the exam
+            const selection = document.getElementById('selectLanguage');
+            selection.value = examObj.configs.language;
+            codeEditor.session.setMode("ace/mode/" + selection.value);
 
         </script>
 
