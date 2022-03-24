@@ -127,6 +127,13 @@ html, body {
     margin-top: 1em;
 }
 
+#save{
+    margin-right: .8em;
+    padding: 5px;
+    border: 2px solid rgb(45, 125, 29);
+    color: rgb(45, 125, 29);
+}
+
 .funcs{
     word-wrap: break-word;
 }
@@ -160,6 +167,11 @@ html, body {
     left: 0;
     right: 0;
     border: 1px solid var(--editor-border);
+}
+
+.top-panel{
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Editor Console Logs */

@@ -19,13 +19,18 @@
                 <!-- <button type="button" class="btn btn-secondary">q1</button> -->
             </div>
             <div class="editor__wrapper">
-                <div class="mb-3">
-                    <button class="editor__btn float-end screen_record" id="record">Record</button>
+                <div class="top-panel mb-3">
                     <button type="button" class="btn btn-danger" id="restrictions" data-bs-toggle="modal"
                         data-bs-target="#backdrop">
                         See Restrictions
                     </button>
 
+                    <form action="http://example.com">
+                        <button class="editor__btn" id="save" type="submit">Save</button>
+                    </form>
+                    
+                    <button class="editor__btn screen_record" id="record">Record</button>
+            
                     <!-- Modal -->
                     <div class="modal fade" id="backdrop" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
