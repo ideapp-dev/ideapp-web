@@ -3,6 +3,7 @@ const consoleLogList = document.querySelector('.editor__console-logs');
 const executeCodeBtn = document.querySelector('.editor__run');
 const resetCodeBtn = document.querySelector('.editor__reset');
 
+
 let cmbLanguage = document.getElementById('selectLanguage');
 let cmbTheme = document.getElementById('selectTheme');
 let cmbFontsize = document.getElementById('selectFontSize');
@@ -254,6 +255,19 @@ cmbFontsize.addEventListener('change', (event) => {
     });
     console.log(selectedFontsize);
 })
+
+const saveCode = function(code){
+    axios({
+        method: 'post',
+        url: '/student-main/exam/' + examObj._id + '/' + qnum,
+        data: {
+            answer:code
+        },
+    })
+        .then((response) => {
+            console.log("request done!");
+    });
+}
 
 
 editorLib.init();

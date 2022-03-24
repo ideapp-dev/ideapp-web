@@ -24,10 +24,8 @@
                         data-bs-target="#backdrop">
                         See Restrictions
                     </button>
-
-                    <form action="http://example.com">
-                        <button class="editor__btn" id="save" type="submit">Save</button>
-                    </form>
+                    
+                    <button class="editor__btn" id="save" type="submit">Save</button>
                     
                     <button class="editor__btn screen_record" id="record">Record</button>
             
@@ -155,6 +153,9 @@
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="/js/editor.js"></script>
         <script src="/js/editor-console.js"></script>
+        <!-- Custom Script for screen record -->
+        <script src="/js/screen-recording.js"></script>
+        
         <script>
             var ex = '<%- exam %>'
             var examObj = JSON.parse(ex);
@@ -175,9 +176,11 @@
             selection.value = examObj.configs.language;
             codeEditor.session.setMode("ace/mode/" + selection.value);
 
+            //save current code in editor
+            const saveBtn = document.getElementById('save');
+            saveBtn.addEventListener('click', () =>{
+               saveCode(codeEditor.getValue());
+            })
         </script>
-
-        <!-- Custom Script for screen record -->
-        <script src="/js/screen-recording.js"></script>
 
 </body>

@@ -54,5 +54,9 @@ router.get('/exam/:id/:q', async (req, res) => {
         res.send("exam is not started yet!");
 })
 
+router.post('/exam/:id/:q', async (req, res) =>{
+    res.send("asdsad");
+})
+
 
 module.exports = router;
