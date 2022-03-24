@@ -55,6 +55,18 @@ router.get('/exam/:id/:q', async (req, res) => {
 })
 
 router.post('/exam/:id/:q', async (req, res) =>{
+    const { id, q} = req.params;
+    const { answer } = req.body;
+
+    const currentUser = await Student.findById(req.user[0]._id);
+    
+    const exams = currentUser.exams;
+    const currentExam = exams.findIndex(x => x.exam_id == id);
+
+    currentUser.exams[currentExam].answers[q-1] = answer;
+    
+    await currentUser.save();
+
     res.send("asdsad");
 })
 

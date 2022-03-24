@@ -257,15 +257,14 @@ cmbFontsize.addEventListener('change', (event) => {
 })
 
 const saveCode = function(code){
-    axios({
-        method: 'post',
-        url: '/student-main/exam/' + examObj._id + '/' + qnum,
-        data: {
-            answer:code
-        },
-    })
-        .then((response) => {
-            console.log("request done!");
+    let data = {answer: code};
+
+    fetch('/student-main/exam/' + examObj._id + '/' + qnum, {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'}, 
+      body: JSON.stringify(data)
+    }).then(res => {
+      console.log("Request complete! response:", res);
     });
 }
 
