@@ -32,6 +32,49 @@
               <div class="form-floating mb-3">
                 <input class="form-control" placeholder="Student ID" name="student_id" id="student_id" required />
                 <label for="student_id">Student ID</label>
+                <div id="id-message" class="message">
+                  <h5>Student id must:</h5>
+                  <p id="num" class="invalid text-align">Contain 9 numbers</p>
+                  <p id="id_letter" class="valid text-align">Not contain letters</p>
+                </div>
+                <script>
+                  var idInput = document.getElementById("student_id");
+                  var num = document.getElementById("num");
+                  var id_letter = document.getElementById("id_letter");
+                  
+                  // When the user clicks on the password field, show the message box
+                  idInput.onfocus = function() {
+                    document.getElementById("id-message").style.display = "block";
+                  }
+                  
+                  // When the user clicks outside of the password field, hide the message box
+                  idInput.onblur = function() {
+                    document.getElementById("id-message").style.display = "none";
+                  }
+                  
+                  // When the user starts to type something inside the student id field
+                  idInput.onkeyup = function() {
+
+                    // Validate letters
+                    var caseLetters = /[a-zA-Z]/g;
+                    if(idInput.value.match(caseLetters)) {
+                      id_letter.classList.remove("valid");
+                      id_letter.classList.add("invalid");
+                    } else {
+                      id_letter.classList.remove("invalid");
+                      id_letter.classList.add("valid");
+                    }
+                  
+                    // Validate length
+                    if(idInput.value.length == 9) {
+                      num.classList.remove("invalid");
+                      num.classList.add("valid");
+                    } else {
+                      num.classList.remove("valid");
+                      num.classList.add("invalid");
+                    }
+                  }
+                  </script>
               </div>
               <% }%>
                 <div class="form-floating mb-3">
@@ -44,7 +87,7 @@
                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required />
                   <label for="password">Password</label>
                 </div> 
-                <div id="message">
+                <div id="psw-message" class="message">
                   <h5>Password must contain the following:</h5>
                   <p id="letter" class="invalid text-align">A <b>lowercase</b> letter</p>
                   <p id="capital" class="invalid text-align">A <b>capital (uppercase)</b> letter</p>
@@ -60,12 +103,12 @@
                   
                   // When the user clicks on the password field, show the message box
                   myInput.onfocus = function() {
-                    document.getElementById("message").style.display = "block";
+                    document.getElementById("psw-message").style.display = "block";
                   }
                   
                   // When the user clicks outside of the password field, hide the message box
                   myInput.onblur = function() {
-                    document.getElementById("message").style.display = "none";
+                    document.getElementById("psw-message").style.display = "none";
                   }
                   
                   // When the user starts to type something inside the password field
