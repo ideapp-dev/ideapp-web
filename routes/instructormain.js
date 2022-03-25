@@ -23,5 +23,9 @@ router.post('/lecture', isLoggedIn, async (req, res) => {
     res.redirect('/instructor-main');
 })
 
+router.get('/create-exam', async(req,res) =>{
+    res.render('create-exam-editor');
+})
+
 
 module.exports = router;
