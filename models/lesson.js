@@ -35,8 +35,12 @@ const LessonSchema = new Schema({
     },
 
     instructor: {
-        type: String,
+        type: Schema.ObjectId, ref: 'Instructor',
         required: true
+    },
+
+    enrolledStudents: {
+        type: [{ type: Schema.ObjectId, ref: 'Student' }]
     },
 
     time: {
