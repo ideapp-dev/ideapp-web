@@ -167,10 +167,16 @@
             //set question selections and links on ide
             setQuestions();
  
-            //set selected question content to ide
+            //set selected default question content to ide
             const qnum = '<%= qnum %>'
-            codeEditor.setValue(examObj.questions[qnum-1]);
+            //codeEditor.setValue(examObj.questions[qnum-1]);
             
+            //set current code answer
+            var exCurrent = '<%- currentExam %>'
+            var exCurrentObj = JSON.parse(exCurrent);
+            const currentCode = exCurrentObj.answers[qnum-1];
+            codeEditor.setValue(currentCode);
+
             //set configured language for the exam
             const selection = document.getElementById('selectLanguage');
             selection.value = examObj.configs.language;

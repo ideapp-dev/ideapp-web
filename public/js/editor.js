@@ -170,7 +170,7 @@ const setQuestions = function(){
         var linkText = document.createTextNode(`q${i+1}`);
         a.appendChild(linkText);
         a.title = i+1;
-        a.href = "/student-main/exam/" + examObj._id + "/" + `${i+1}`;
+        a.href = "/student-main/exam/ans/" + examObj._id + "/" + `${i+1}`;
 
         questionsDiv.appendChild(a);
     }
