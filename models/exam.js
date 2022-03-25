@@ -8,13 +8,11 @@ const ExamSchema = new Schema({
     },
 
     start_time: {
-        type: String,
-        required: true
+        type: String
     },
 
     end_time: {
-        type: String,
-        required: true,
+        type: String
     },
 
     scores: [{ student_id: String, value: Number }],

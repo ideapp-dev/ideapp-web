@@ -46,14 +46,18 @@
                                                 <h5>Functions</h5>
                                                 <hr>
                                                 <ul id="funcs">
-                                                   
+                                                    <% for(var i=0; i < restrictedFuncs.length ; i++) { %>
+                                                        <li><%= restrictedFuncs[i] %></li>
+                                                    <% } %>
                                                 </ul>
                                             </div>
                                             <div class="col-6 libs">
                                                 <h5>Libraries</h5>
                                                 <hr>
                                                 <ul id="libs">
-                                                    
+                                                    <% for(var i=0; i < restrictedLibs.length ; i++) { %>
+                                                        <li><%= restrictedLibs[i] %></li>
+                                                    <% } %>
                                                 </ul>
                                             </div>
                                         </div>
@@ -73,7 +77,7 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="http://example.com" method="post">
+                                <form action="set-restriction" method="post">
                                     <div class="form-group mb-3">
                                         <label for="exampleFormControlSelect1">Restricton Type</label>
                                         <select class="form-control" id="exampleFormControlSelect1" name="type">
