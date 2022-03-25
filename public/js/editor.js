@@ -3,6 +3,7 @@ const consoleLogList = document.querySelector('.editor__console-logs');
 const executeCodeBtn = document.querySelector('.editor__run');
 const resetCodeBtn = document.querySelector('.editor__reset');
 
+
 let cmbLanguage = document.getElementById('selectLanguage');
 let cmbTheme = document.getElementById('selectTheme');
 let cmbFontsize = document.getElementById('selectFontSize');
@@ -133,6 +134,48 @@ const detectRestrictions = function (userCode) {
     editorLib.printToConsole('log log--error');
 }
 
+var examTimer = function(date){
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+        var countDownDate = new Date(date).getTime();
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="demo"
+        document.getElementById("remaining").innerHTML = hours + "h "
+        + minutes + "m " + seconds + "s ";
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("remaining").innerHTML = "EXPIRED";
+        }
+    }, 1000)
+}
+
+const setQuestions = function(){
+    const questionsDiv = document.getElementsByClassName('questions')[0];
+              
+    for(let i = 0; i < examObj.questions.length; i++){
+        var a = document.createElement('a');
+        var linkText = document.createTextNode(`q${i+1}`);
+        a.appendChild(linkText);
+        a.title = i+1;
+        a.href = "/student-main/exam/ans/" + examObj._id + "/" + `${i+1}`;
+
+        questionsDiv.appendChild(a);
+    }
+}
+
 // Events
 executeCodeBtn.addEventListener('click', () => {
     // Clear console messages
@@ -212,6 +255,18 @@ cmbFontsize.addEventListener('change', (event) => {
     });
     console.log(selectedFontsize);
 })
+
+const saveCode = function(code){
+    let data = {answer: code};
+
+    fetch('/student-main/exam/' + examObj._id + '/' + qnum, {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'}, 
+      body: JSON.stringify(data)
+    }).then(res => {
+      console.log("Request complete! response:", res);
+    });
+}
 
 
 editorLib.init();

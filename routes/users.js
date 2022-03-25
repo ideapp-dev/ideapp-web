@@ -7,8 +7,7 @@ const Instructor = require('../models/instructor');
 const Lesson = require('../models/lesson');
 const bcrypt = require('bcrypt');
 const { isLoggedIn } = require('../middleware');
-const lesson = require('../models/lesson');
-const instructor = require('../models/instructor');
+
 
 router.get('/', async (req, res) => {
     res.render('home', { title: 'home' });
@@ -132,45 +131,5 @@ router.get('/logout', (req, res) => {
     req.flash('success', "Goodbye!");
     res.redirect('/');
 })
-
-router.get('/instructor-main', isLoggedIn, async (req, res) => {
-    const lectures = await Lesson.find({});
-    res.render('users/instructor', { lectures: lectures })
-})
-
-router.get('/student-main', isLoggedIn, async (req, res) => {
-    let currentStudent = await Student.findById(req.user[0]._id);
-
-    let studentPopulated = await currentStudent.populate("lessons_taken");
-    let enrolledLessons = studentPopulated.lessons_taken;
-
-    let lectures = await Lesson.find({});
-    let lectureCodes = [];
-    lectures.forEach(lecture => lectureCodes.push(lecture.code));
-
-    res.render('users/student', { lectureCodes: lectureCodes, enrolledLessons: enrolledLessons });
-})
-
-router.post('/lecture', isLoggedIn, async (req, res) => {
-    const { code, name, description, credit } = req.body;
-    const currentUserFullName = req.user[0].name + " " + req.user[0].sirname;
-    const newLesson = new Lesson({ code, name, description, credit, faculty: 'Computer Engineering', instructor: currentUserFullName, semester: 'Spring 2022' });
-    await newLesson.save();
-
-    res.redirect('/instructor-main');
-})
-
-router.post('/enroll', isLoggedIn, async (req, res) => {
-    const { code } = req.body;
-    let newLecture = await Lesson.findOne({ code: code });
-
-    let currentStudent = await Student.findById(req.user[0]._id);
-    currentStudent.lessons_taken.push(newLecture);
-    await currentStudent.save();
-
-    res.redirect('/student-main');
-})
-
-
 
 module.exports = router;

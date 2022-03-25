@@ -20,7 +20,12 @@ const InstructorSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+
+    lessons_given: {
+        type: [{ type: Schema.ObjectId, ref: 'Lesson' }]
     }
+
 }, { collection: 'Instructor' });
 
 

@@ -31,7 +31,9 @@ const StudentSchema = new Schema({
     },
     lessons_taken: {
         type: [{ type: Schema.ObjectId, ref: 'Lesson' }]
-    }
+    },
+
+    exams: [{ exam_id: {type: Schema.ObjectId, ref: 'Exam'}, answers: [{type:String}] }]
 });
 
 
