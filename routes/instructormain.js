@@ -7,6 +7,19 @@ const Lesson = require('../models/lesson');
 const { isLoggedIn } = require('../middleware');
 const Exam = require('../models/exam');
 
+const setObj = function(obj){
+    let stringified =  JSON.stringify(obj);
+    var escaped = stringified.replace(/[\\]/g, '\\\\')
+                            .replace(/[\"]/g, '\\\"')
+                            .replace(/[\/]/g, '\\/')
+                            .replace(/[\b]/g, '\\b')
+                            .replace(/[\f]/g, '\\f')
+                            .replace(/[\n]/g, '\\n')
+                            .replace(/[\r]/g, '\\r')
+                            .replace(/[\t]/g, '\\t');
+    return escaped;
+}
+
 router.get('/', isLoggedIn, async (req, res) => {
     const lectures = await Lesson.find({ instructor: req.user[0]._id });
     res.render('users/instructor', { lectures: lectures })
@@ -28,7 +41,9 @@ router.get('/:examid/create-exam', async(req,res) =>{
     const {examid} = req.params;
     const exam = await Exam.findById(examid);
 
-    res.render('create-exam-editor', {restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs});
+    var escapedExam = setObj(exam);
+
+    res.render('create-exam-editor', {exam:escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs});
 })
 
 router.post('/:examid/set-restriction', async(req,res) =>{
@@ -45,8 +60,24 @@ router.post('/:examid/set-restriction', async(req,res) =>{
     
     await exam.save();
 
-    res.render('create-exam-editor', {restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs});
+    var escapedExam = setObj(exam);
+    
+    res.render('create-exam-editor', {exam:escapedExam,restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs});
 })
 
+router.post('/:examid/set-language', async(req,res) =>{
+    const {examid} = req.params;
+    const{language} = req.body;
+
+    const exam = await Exam.findById(examid);
+    exam.configs.language = language;
+
+    await exam.save();
+
+    var escapedExam = setObj(exam);
+
+    res.render('create-exam-editor', {exam:escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, language: exam.configs.language});
+    
+})
 
 module.exports = router;

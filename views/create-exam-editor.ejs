@@ -185,6 +185,13 @@
         <script src="/js/screen-recording.js"></script>
         
         <script>
+            var ex = '<%- exam %>'
+            var examObj = JSON.parse(ex);
+
+            const saveBtn = document.getElementById('save');
+            saveBtn.addEventListener('click', () =>{
+                setExamLanguage();
+            })
 
         </script>
 

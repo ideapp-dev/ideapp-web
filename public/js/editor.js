@@ -264,8 +264,21 @@ const saveCode = function(code){
       headers: {'Content-Type': 'application/json'}, 
       body: JSON.stringify(data)
     }).then(res => {
-      console.log("Request complete! response:", res);
+      
     });
+}
+
+const setExamLanguage = function(){
+    let selectedLanguage = (cmbLanguage.options[cmbLanguage.selectedIndex].value);
+    let data = {language: selectedLanguage};
+    
+    fetch('/instructor-main/' + examObj._id + '/set-language', {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify(data)
+      }).then(res => {
+        
+      });
 }
 
 
