@@ -8,7 +8,6 @@ const Lesson = require('../models/lesson');
 const bcrypt = require('bcrypt');
 const { isLoggedIn } = require('../middleware');
 
-
 router.get('/', async (req, res) => {
     res.render('home', { title: 'home' });
 });
