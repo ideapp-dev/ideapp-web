@@ -134,6 +134,13 @@ html, body {
     color: rgb(45, 125, 29);
 }
 
+#add{
+    margin-right: .8em;
+    padding: 5px;
+    border: 2px solid rgb(196, 107, 25);
+    color: rgb(196, 107, 25);
+}
+
 .funcs{
     word-wrap: break-word;
 }

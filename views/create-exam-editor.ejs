@@ -25,8 +25,8 @@
                         See Restrictions
                     </button>
                     
+                    <button class="editor__btn" id="add">Add</button>
                     <button class="editor__btn" id="save" type="submit">Save</button>
-                    
                     <button class="editor__btn screen_record" id="record">Record</button>
             
                     <!-- Modal -->
@@ -188,9 +188,16 @@
             var ex = '<%- exam %>'
             var examObj = JSON.parse(ex);
 
+            setQuestions();
+
             const saveBtn = document.getElementById('save');
             saveBtn.addEventListener('click', () =>{
                 setExamLanguage();
+            })
+
+            const addBtn = document.getElementById('add');
+            addBtn.addEventListener('click', () =>{
+                addQuestions();
             })
 
         </script>

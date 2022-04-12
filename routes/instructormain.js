@@ -80,4 +80,18 @@ router.post('/:examid/set-language', async(req,res) =>{
     
 })
 
+router.post('/:examid/add-question', async(req,res) =>{
+    const {examid} = req.params;
+    const exam = await Exam.findById(examid);
+    const currentLength = exam.questions.length + 1;
+    exam.questions.push(`--- question ${currentLength} ---`);
+
+    await exam.save();
+
+    var escapedExam = setObj(exam);
+
+    res.render('create-exam-editor', {exam:escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, language: exam.configs.language});
+    
+});
+
 module.exports = router;

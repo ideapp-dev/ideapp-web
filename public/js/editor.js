@@ -176,6 +176,29 @@ const setQuestions = function(){
     }
 }
 
+let i = 0;
+const addQuestions = function(){
+    const questionsDiv = document.getElementsByClassName('questions')[0];
+    if( i <= 0)
+        i = examObj.questions.length + 1;
+    
+    fetch('/instructor-main/' + examObj._id + '/add-question', {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'}, 
+      }).then(res => {
+        var a = document.createElement('a');
+        var linkText = document.createTextNode(`q${i}`);
+        a.appendChild(linkText);
+        a.title = i;
+        a.href = "/student-main/exam/ans/" + examObj._id + "/" + `${i}`;
+    
+        questionsDiv.appendChild(a);
+
+        i++;
+      });
+    
+}
+
 // Events
 executeCodeBtn.addEventListener('click', () => {
     // Clear console messages
@@ -271,7 +294,7 @@ const saveCode = function(code){
 const setExamLanguage = function(){
     let selectedLanguage = (cmbLanguage.options[cmbLanguage.selectedIndex].value);
     let data = {language: selectedLanguage};
-    
+
     fetch('/instructor-main/' + examObj._id + '/set-language', {
         method: "POST",
         headers: {'Content-Type': 'application/json'}, 
