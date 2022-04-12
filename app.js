@@ -21,6 +21,8 @@ const Instructor = require('./models/instructor');
 
 const userRoutes = require('./routes/users');
 const aceRoutes = require('./routes/editor');
+const studentRoutes = require('./routes/studentmain');
+const instructorRoutes = require('./routes/instructormain');
 
 connectDB();
 
@@ -31,6 +33,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(morgan('tiny'));
@@ -76,6 +79,8 @@ app.use((req, res, next) => {
 
 app.use('/', userRoutes);
 app.use('/playground', aceRoutes);
+app.use('/student-main', studentRoutes);
+app.use('/instructor-main', instructorRoutes);
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
