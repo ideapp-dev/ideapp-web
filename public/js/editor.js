@@ -344,5 +344,17 @@ const setExamLanguage = function(){
       });
 }
 
+const savePoint = function(scoreVal){
+    let data = {score: scoreVal};
+
+    fetch("/instructor-main/exam/score/" + examObj._id + "/" + studentObj._id + "/" + qnum, {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'}, 
+      body: JSON.stringify(data)
+    }).then(res => {
+      
+    });
+}
+
 
 editorLib.init();

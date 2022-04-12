@@ -133,4 +133,18 @@ router.get('/exam/:examid/:studentid/:q', async (req,res) =>{
 
 })
 
+router.post('/exam/score/:examid/:studentid/:q', async (req,res) =>{
+    const{examid, studentid, q} = req.params;
+    const{score} = req.body;
+
+    const currentStudent = await Student.findById(studentid);
+    
+    const exams = currentStudent.exams;
+    const currentExam = exams.findIndex(x => x.exam_id == examid);
+    currentStudent.exams[currentExam].score[q-1] = score;
+
+    await currentStudent.save();
+
+})
+
 module.exports = router;

@@ -25,9 +25,37 @@
                         See Restrictions
                     </button>
                     
+                    
                     <button class="editor__btn" id="save" type="submit">Save</button>
                     
-                    <button class="editor__btn screen_record" id="record">Record</button>
+                    <button type="button" class="btn btn-success" id="point" data-bs-toggle="modal"
+                        data-bs-target="#givepoint">
+                        Give a Point
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="givepoint" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Score</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="recipient-name" class="col-form-label">%100</label>
+                                    <input type="text" class="form-control" id="score-val">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="savePoint">Save</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
             
                     <!-- Modal -->
                     <div class="modal fade" id="backdrop" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -85,11 +113,7 @@
                             </select>
                         </form>
                     </div>
-                    <div class="time">
-                        <p style="margin-left: 8rem; border:3px solid red; padding-left:5px; padding-right: 5px;">Time: 
-                            <span id="remaining" style="color: red;"></span>
-                        </p>
-                    </div>
+          
                     <div class="appereance">
                         <div class="drop-theme">
                             <form>
@@ -164,10 +188,7 @@
             var studentObj = JSON.parse(student);
 
             setQuestionsForAsses();
-            
-            //show remaning time
-            const end_time = examObj.end_time;
-            examTimer(end_time);
+
  
             //set selected default question content to ide
             const qnum = '<%= qnum %>'
@@ -189,6 +210,13 @@
             saveBtn.addEventListener('click', () =>{
                
             })
+
+            const pointBtn = document.getElementById('savePoint');
+            const scoreVal = document.getElementById('score-val');
+            pointBtn.addEventListener('click', () =>{
+               savePoint(scoreVal.value);
+            })
+
         </script>
 
 </body>
