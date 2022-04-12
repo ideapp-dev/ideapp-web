@@ -43,7 +43,7 @@ router.get('/:examid/create-exam', async(req,res) =>{
 
     var escapedExam = setObj(exam);
 
-    res.render('create-exam-editor', {exam:escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs});
+    res.render('create-exam-editor', {exam:escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum: ''});
 })
 
 router.post('/:examid/set-restriction', async(req,res) =>{
@@ -84,14 +84,34 @@ router.post('/:examid/add-question', async(req,res) =>{
     const {examid} = req.params;
     const exam = await Exam.findById(examid);
     const currentLength = exam.questions.length + 1;
-    exam.questions.push(`--- question ${currentLength} ---`);
+    exam.questions.push(`//--- question ${currentLength} ---`);
 
     await exam.save();
-
     var escapedExam = setObj(exam);
 
     res.render('create-exam-editor', {exam:escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, language: exam.configs.language});
     
 });
+
+router.get('/exam/ans/:id/:q', async (req, res) => {
+    const { id, q} = req.params;
+    const exam = await Exam.findById(id);
+    
+    var escapedExam = setObj(exam);
+
+    res.render('create-exam-editor', { exam: escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, 
+        language: exam.configs.language, qnum: q});
+
+})
+
+router.post('/exam/:id/:q', async (req, res) =>{
+    const { id, q} = req.params;
+    const { content } = req.body;
+
+    const exam = await Exam.findById(id);
+    exam.questions[q-1] = content;
+
+    await exam.save();
+})
 
 module.exports = router;

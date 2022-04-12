@@ -176,6 +176,20 @@ const setQuestions = function(){
     }
 }
 
+const setQuestionsInstructor = function(){
+    const questionsDiv = document.getElementsByClassName('questions')[0];
+              
+    for(let i = 0; i < examObj.questions.length; i++){
+        var a = document.createElement('a');
+        var linkText = document.createTextNode(`q${i+1}`);
+        a.appendChild(linkText);
+        a.title = i+1;
+        a.href = "/instructor-main/exam/ans/" + examObj._id + "/" + `${i+1}`;
+
+        questionsDiv.appendChild(a);
+    }
+}
+
 let i = 0;
 const addQuestions = function(){
     const questionsDiv = document.getElementsByClassName('questions')[0];
@@ -190,7 +204,7 @@ const addQuestions = function(){
         var linkText = document.createTextNode(`q${i}`);
         a.appendChild(linkText);
         a.title = i;
-        a.href = "/student-main/exam/ans/" + examObj._id + "/" + `${i}`;
+        a.href = "/instructor-main/exam/ans/" + examObj._id + "/" + `${i}`;
     
         questionsDiv.appendChild(a);
 
@@ -283,6 +297,18 @@ const saveCode = function(code){
     let data = {answer: code};
 
     fetch('/student-main/exam/' + examObj._id + '/' + qnum, {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'}, 
+      body: JSON.stringify(data)
+    }).then(res => {
+      
+    });
+}
+
+const setCode = function(code){
+    let data = {content: code};
+
+    fetch('/instructor-main/exam/' + examObj._id + '/' + qnum, {
       method: "POST",
       headers: {'Content-Type': 'application/json'}, 
       body: JSON.stringify(data)

@@ -188,11 +188,16 @@
             var ex = '<%- exam %>'
             var examObj = JSON.parse(ex);
 
-            setQuestions();
+            setQuestionsInstructor();
+
+            const qnum = '<%= qnum %>'
+            const currentCode = examObj.questions[qnum-1];
+            codeEditor.setValue(currentCode);
 
             const saveBtn = document.getElementById('save');
             saveBtn.addEventListener('click', () =>{
                 setExamLanguage();
+                setCode(codeEditor.getValue());
             })
 
             const addBtn = document.getElementById('add');
