@@ -114,4 +114,23 @@ router.post('/exam/:id/:q', async (req, res) =>{
     await exam.save();
 })
 
+//get selected student exam content
+router.get('/exam/:examid/:studentid/:q', async (req,res) =>{
+    const{examid, studentid, q} = req.params;
+    const exam = await Exam.findById(examid);
+
+    const currentStudent = await Student.findById(studentid);
+
+    const exams = currentStudent.exams;
+    const currentExam = exams.findIndex(x => x.exam_id == examid);
+
+    var escapedCurrentExam = setObj(exams[currentExam]);
+    var escapedExam = setObj(exam);
+    var escapedStudent = setObj(currentStudent);
+
+    res.render('asses-exam-editor', { exam: escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum: q, currentExam: escapedCurrentExam,
+    currentStudent: escapedStudent});
+
+})
+
 module.exports = router;

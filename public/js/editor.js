@@ -190,6 +190,20 @@ const setQuestionsInstructor = function(){
     }
 }
 
+const setQuestionsForAsses = function(){
+    const questionsDiv = document.getElementsByClassName('questions')[0];
+              
+    for(let i = 0; i < examObj.questions.length; i++){
+        var a = document.createElement('a');
+        var linkText = document.createTextNode(`q${i+1}`);
+        a.appendChild(linkText);
+        a.title = i+1;
+        a.href = "/instructor-main/exam/" + examObj._id + "/" + studentObj._id + "/" + `${i+1}`;
+
+        questionsDiv.appendChild(a);
+    }
+}
+
 let i = 0;
 const addQuestions = function(){
     const questionsDiv = document.getElementsByClassName('questions')[0];
