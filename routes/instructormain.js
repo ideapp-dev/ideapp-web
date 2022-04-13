@@ -22,6 +22,7 @@ const setObj = function(obj){
 
 router.get('/', isLoggedIn, async (req, res) => {
     const lectures = await Lesson.find({ instructor: req.user[0]._id });
+    console.log(lectures);
     res.render('users/instructor', { lectures: lectures })
 })
 
@@ -37,14 +38,24 @@ router.post('/lecture', isLoggedIn, async (req, res) => {
     res.redirect('/instructor-main');
 })
 
-router.get('/:examid/create-exam', async(req,res) =>{
-    const {examid} = req.params;
-    const exam = await Exam.findById(examid);
+//create new exam
+router.post('/create-exam', async(req,res) =>{
+    const {name, lecture_id} = req.body;
 
-    var escapedExam = setObj(exam);
+    const newExamObj = {
+        lesson_id: lecture_id,
+        name:name,
+        start_time:'',
+        end_time:'',
+        configs:{restrictedFuncs:[], restrictedLibs:[], language:'java'},
+        questions:['//---question1 ---']
+    };
+    let newExam = new Exam(newExamObj);
 
-    res.render('create-exam-editor', {exam:escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum: ''});
+    await newExam.save();
+  
 })
+
 
 router.post('/:examid/set-restriction', async(req,res) =>{
     const {examid} = req.params;
@@ -62,7 +73,7 @@ router.post('/:examid/set-restriction', async(req,res) =>{
 
     var escapedExam = setObj(exam);
     
-    res.render('create-exam-editor', {exam:escapedExam,restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs});
+    res.render('create-exam-editor', {exam:escapedExam,exam_id: exam._id,restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum:''});
 })
 
 router.post('/:examid/set-language', async(req,res) =>{
@@ -76,7 +87,7 @@ router.post('/:examid/set-language', async(req,res) =>{
 
     var escapedExam = setObj(exam);
 
-    res.render('create-exam-editor', {exam:escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, language: exam.configs.language});
+    //res.render('create-exam-editor', {exam:escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, language: exam.configs.language});
     
 })
 
@@ -89,7 +100,7 @@ router.post('/:examid/add-question', async(req,res) =>{
     await exam.save();
     var escapedExam = setObj(exam);
 
-    res.render('create-exam-editor', {exam:escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, language: exam.configs.language});
+    res.render('create-exam-editor', {exam:escapedExam, exam_id: exam._id,restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, language: exam.configs.language});
     
 });
 
@@ -99,7 +110,7 @@ router.get('/exam/ans/:id/:q', async (req, res) => {
     
     var escapedExam = setObj(exam);
 
-    res.render('create-exam-editor', { exam: escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, 
+    res.render('create-exam-editor', { exam: escapedExam, exam_id: exam._id,restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, 
         language: exam.configs.language, qnum: q});
 
 })
@@ -128,11 +139,12 @@ router.get('/exam/:examid/:studentid/:q', async (req,res) =>{
     var escapedExam = setObj(exam);
     var escapedStudent = setObj(currentStudent);
 
-    res.render('asses-exam-editor', { exam: escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum: q, currentExam: escapedCurrentExam,
+    res.render('asses-exam-editor', { exam: escapedExam,exam_id: exam._id, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum: q, currentExam: escapedCurrentExam,
     currentStudent: escapedStudent});
 
 })
 
+//set score for exam questions
 router.post('/exam/score/:examid/:studentid/:q', async (req,res) =>{
     const{examid, studentid, q} = req.params;
     const{score} = req.body;

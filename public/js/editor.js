@@ -288,8 +288,8 @@ resetCodeBtn.addEventListener('click', () => {
 cmbLanguage.addEventListener('change', (event) => {
     let selectedLanguage = (cmbLanguage.options[cmbLanguage.selectedIndex].value);
     codeEditor.getSession().setMode("ace/mode/" + selectedLanguage);
-    codeEditor.setValue('');
-    editorLib.clearConsoleScreen();
+    //codeEditor.setValue('');
+    //editorLib.clearConsoleScreen();
     console.log(selectedLanguage);
 })
 
@@ -340,7 +340,7 @@ const setExamLanguage = function(){
         headers: {'Content-Type': 'application/json'}, 
         body: JSON.stringify(data)
       }).then(res => {
-        
+         
       });
 }
 
