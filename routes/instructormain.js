@@ -22,6 +22,7 @@ const setObj = function(obj){
 
 router.get('/', isLoggedIn, async (req, res) => {
     const lectures = await Lesson.find({ instructor: req.user[0]._id });
+    console.log(lectures);
     res.render('users/instructor', { lectures: lectures })
 })
 
