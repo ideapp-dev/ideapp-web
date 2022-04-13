@@ -33,7 +33,7 @@ const StudentSchema = new Schema({
         type: [{ type: Schema.ObjectId, ref: 'Lesson' }]
     },
 
-    exams: [{ exam_id: {type: Schema.ObjectId, ref: 'Exam'}, answers: [{type:String}] }]
+    exams: [{ exam_id: {type: Schema.ObjectId, ref: 'Exam'}, answers: [{type:String}], score: [{type:String}]}]
 });
 
 
