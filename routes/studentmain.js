@@ -44,6 +44,29 @@ router.post('/enroll', isLoggedIn, async (req, res) => {
     res.redirect('/student-main');
 })
 
+//set spesific exam questions to student exam answer array
+router.get('/exam/:id', async(req,res) =>{
+    const { id, q } = req.params;
+    const exam = await Exam.findById(id);
+
+    if(isExamTimeOn(exam)){
+        const currentUser = await Student.findById(req.user[0]._id);
+
+        const exams = currentUser.exams;
+        const currentExam = exams.findIndex(x => x.exam_id == id);
+
+        currentUser.exams[currentExam].answers = exam.questions;
+        await currentUser.save();
+
+        var escapedCurrentExam = setObj(exams[currentExam]);
+        var escapedExam = setObj(exam);
+
+        res.render('exam-editor', { exam: escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum: q, currentExam: escapedCurrentExam});
+    }
+    else
+        res.send("exam is not started yet!");
+
+})
 
 router.get('/exam/:id/:q', async (req, res) => {
     const { id, q} = req.params;
