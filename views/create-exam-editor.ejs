@@ -26,7 +26,7 @@
                     </button>
                     
                     <button class="editor__btn" id="add">Add</button>
-                    <button class="editor__btn" id="save" type="submit">Save</button>
+                    <button class="editor__btn" id="save">Save</button>
                     <button class="editor__btn screen_record" id="record">Record</button>
             
                     <!-- Modal -->
@@ -77,7 +77,7 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="set-restriction" method="post">
+                                <form action="/instructor-main/<%= exam_id %>/set-restriction" method="post">
                                     <div class="form-group mb-3">
                                         <label for="exampleFormControlSelect1">Restricton Type</label>
                                         <select class="form-control" id="exampleFormControlSelect1" name="type">
@@ -194,8 +194,13 @@
             const currentCode = examObj.questions[qnum-1];
             codeEditor.setValue(currentCode);
 
+            const selection = document.getElementById('selectLanguage');
+            selection.value = examObj.configs.language;
+            codeEditor.session.setMode("ace/mode/" + selection.value);
+
             const saveBtn = document.getElementById('save');
             saveBtn.addEventListener('click', () =>{
+                console.log("save clicked!");
                 setExamLanguage();
                 setCode(codeEditor.getValue());
             })

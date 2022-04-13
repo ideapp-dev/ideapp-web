@@ -20,7 +20,7 @@ router.get('/:lectureid/:code', async (req, res) => {
     const exam_names = exams.map(x => x.name);
     const exam_ids = exams.map(x => x._id);
 
-    res.render('instructor-coursepage', {names:names, student_ids:student_ids, exam_names:exam_names, exam_ids:exam_ids});
+    res.render('instructor-coursepage', {names:names, student_ids:student_ids, exam_names:exam_names, exam_ids:exam_ids, lecture_id:lectureid});
 })
 
 module.exports = router;
