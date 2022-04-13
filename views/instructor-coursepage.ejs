@@ -39,9 +39,9 @@
                             <div class="card_item">
                                 <h4 style="text-align: left"> 
                                     <ul>
-                                        <li><a href="#" class="link">Çido</a></li>
-                                        <li><a href="#" class="link">Yiğit</a></li>
-                                        <li><a href="#" class="link">Hebele</a></li>
+                                        <% for(var i=0; i < exam_names.length; i++) { %>
+                                            <li><a href="/student-in-course.ejs" class="link"><%=exam_names[i]%></a></li>
+                                        <% } %>
                                   </ul> 
                                 </h4>
                             </div>

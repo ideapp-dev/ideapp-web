@@ -6,6 +6,10 @@ const ExamSchema = new Schema({
         type: Schema.ObjectId, ref: 'Lesson',
         required: true
     },
+    name: {
+        type:String,
+        required:true
+    },
 
     start_time: {
         type: String
