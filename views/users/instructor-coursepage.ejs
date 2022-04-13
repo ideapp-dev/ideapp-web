@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dersler</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/instructor-coursepage.css">
+</head>
+
+<body class="d-flex flex-column vh-100">
+    <%- include('../partials/navbar')%>
+    <div class="container-main">
+
+        <div class="row">
+            <div class="col">
+                <div class="wrapper-wrapper-student">
+                    <div class="wrapper-header">Student ID</div>
+                    <div class="wrapper-student">
+                        <div class="card_item">
+                            <h4 style="text-align: left"> 
+                                <ul>
+                                    <li><a href="/student-in-course.ejs" class="link">Çido</a></li>
+                                    <li><a href="#" class="link">Yiğit</a></li>
+                                    <li><a href="#" class="link">Hebele</a></li>
+                              </ul> 
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col text-white">
+                <div class="row">
+                    <div class="wrapper-wrapper-quizexam">
+                        <div class="wrapper-header">Exams</div>
+                        <div class="wrapper-quizexam">
+                            <div class="card_item">
+                                <h4 style="text-align: left"> 
+                                    <ul>
+                                        <li><a href="#" class="link">Çido</a></li>
+                                        <li><a href="#" class="link">Yiğit</a></li>
+                                        <li><a href="#" class="link">Hebele</a></li>
+                                  </ul> 
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="wrapper-footer">
+                            <button type="button" class="addbtn btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                                Add Exam
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="wrapper-wrapper-quizexam">
+                        <div class="wrapper-header">Quiz</div>
+                        <div class="wrapper-quizexam">
+                            <div class="card_item">
+                                <h4 style="text-align: left"> 
+                                    <ul>
+                                        <li><a href="#" class="link">Çido</a></li>
+                                        <li><a href="#" class="link">Yiğit</a></li>
+                                        <li><a href="#" class="link">Hebele</a></li>
+                                  </ul> 
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="wrapper-footer">
+                            <button type="button" class="addbtn btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                                Add Quiz
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col text-white">
+                <div class="wrapper-wrapper-assignment">
+                    <div class="wrapper-header">Assigments</div>
+                    <div class="wrapper-assignment">
+                        <div class="card_item">
+                            <h4 style="text-align: left"> 
+                                <ul>
+                                    <li><a href="#" class="link">Çido</a></li>
+                                    <li><a href="#" class="link">Yiğit</a></li>
+                                    <li><a href="#" class="link">Hebele</a></li>
+                              </ul> 
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="wrapper-footer">
+                        <button type="button" class="addbtn btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                            Add Assignment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../partials/footer')%>
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+
+            <script src="/js/instructor.js"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+            
+</body>
+
+</html>
