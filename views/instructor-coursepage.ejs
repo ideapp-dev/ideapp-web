@@ -63,8 +63,16 @@
                                     <div class="modal-body">
                                         <form>
                                             <div class="mb-3">
-                                                <label for="recipient-name" class="col-form-label" style="color: black;">Name</label>
+                                                <label for="exam-name" class="col-form-label" style="color: black;">Name</label>
                                                 <input type="text" class="form-control" id="exam-name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exam-start" class="col-form-label" style="color: black;">Start Time</label>
+                                                <input type="text" class="form-control" id="exam-start" placeholder="March 27, 2022 19:00:00">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exam-end" class="col-form-label" style="color: black;">End Time</label>
+                                                <input type="text" class="form-control" id="exam-end" placeholder="March 27, 2022 20:00:00">
                                             </div>
                                         </form>
                                     </div>
@@ -143,8 +151,10 @@
             <script>
                 const addExamBtn = document.getElementById('saveExam');
                 const examName = document.getElementById('exam-name');
+                const examStart = document.getElementById('exam-start');
+                const examEnd = document.getElementById('exam-end');           
                 addExamBtn.addEventListener('click', () =>{
-                    addExam(examName.value, '<%=lecture_id%>');
+                    addExam(examName.value, examStart.value, examEnd.value, '<%=lecture_id%>');
                     
                 })
 
