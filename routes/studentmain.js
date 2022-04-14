@@ -4,7 +4,7 @@ const catchAsync = require('../utils/catchAsync');
 const Student = require('../models/student');
 const Lesson = require('../models/lesson');
 const Exam = require('../models/exam');
-const { isLoggedIn, isExamTimeOn } = require('../middleware');
+const { isLoggedIn, isExamTimeOn, isExamTimeEnd } = require('../middleware');
 
 const setObj = function(obj){
     let stringified =  JSON.stringify(obj);
@@ -44,10 +44,13 @@ router.post('/enroll', isLoggedIn, async (req, res) => {
     res.redirect('/student-main');
 })
 
-//set spesific exam questions to student exam answer array
+//see exam
 router.get('/exam/:id', async(req,res) =>{
     const { id, q } = req.params;
     const exam = await Exam.findById(id);
+
+    if(isExamTimeEnd(exam))
+        res.send("exam is ended!");
 
     if(isExamTimeOn(exam)){
         const currentUser = await Student.findById(req.user[0]._id);
@@ -55,11 +58,29 @@ router.get('/exam/:id', async(req,res) =>{
         const exams = currentUser.exams;
         const currentExam = exams.findIndex(x => x.exam_id == id);
 
-        currentUser.exams[currentExam].answers = exam.questions;
-        await currentUser.save();
+        var escapedCurrentExam = '';
+        var escapedExam = '';
 
-        var escapedCurrentExam = setObj(exams[currentExam]);
-        var escapedExam = setObj(exam);
+        if(currentExam >= 0){ //if it exists
+            currentUser.exams[currentExam].answers = exam.questions;
+            await currentUser.save();
+
+            escapedCurrentExam = setObj(exams[currentExam]);
+            escapedExam = setObj(exam);
+        }
+        else{
+            const newExam = {
+                exam_id: id,
+                answers: exam.questions,
+                score: []
+            };
+            
+            currentUser.exams.push(newExam);
+            await currentUser.save();
+
+            escapedCurrentExam = setObj(newExam);
+            escapedExam = setObj(exam);
+        } 
 
         res.render('exam-editor', { exam: escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum: q, currentExam: escapedCurrentExam});
     }
@@ -80,6 +101,7 @@ router.get('/exam/:id/:q', async (req, res) => {
         res.send("exam is not started yet!");
 })
 
+//get the specified question content
 router.get('/exam/ans/:id/:q', async (req, res) => {
     const { id, q} = req.params;
     const exam = await Exam.findById(id);
@@ -99,6 +121,7 @@ router.get('/exam/ans/:id/:q', async (req, res) => {
         res.send("exam is not started yet!");
 })
 
+//save the answer of the current question
 router.post('/exam/:id/:q', async (req, res) =>{
     const { id, q} = req.params;
     const { answer } = req.body;

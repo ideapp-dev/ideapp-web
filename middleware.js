@@ -18,8 +18,20 @@ const isExamTimeOn = function(examObj){
         return true;
 }
 
+const isExamTimeEnd = function(examObj){
+    var end = new Date(examObj.end_time).getTime();
+    var now = new Date().getTime();
+    var distance =  end - now;
+
+    if(distance > 0)
+        return false;
+    else
+        return true;
+}
+
 
 module.exports = {
     isLoggedIn,
-    isExamTimeOn
+    isExamTimeOn,
+    isExamTimeEnd
 };
