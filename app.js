@@ -24,6 +24,7 @@ const aceRoutes = require('./routes/editor');
 const studentRoutes = require('./routes/studentmain');
 const instructorRoutes = require('./routes/instructormain');
 const instructorCourseRoutes = require('./routes/instructor-course');
+const studentCourseRoutes = require('./routes/student-course');
 
 connectDB();
 
@@ -73,6 +74,14 @@ app.use(passport.session())
 app.use((req, res, next) => {
     console.log("current user:", req.user);
     res.locals.currentUser = req.user;
+    
+    if(res.locals.currentUser){
+        if(res.locals.currentUser[0].student_id)
+            res.locals.isInstructor = false;
+        else
+            res.locals.isInstructor = true;
+    }
+        
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
@@ -83,6 +92,7 @@ app.use('/playground', aceRoutes);
 app.use('/student-main', studentRoutes);
 app.use('/instructor-main', instructorRoutes);
 app.use('/instructor-main/course', instructorCourseRoutes);
+app.use('/student-main/course', studentCourseRoutes);
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
