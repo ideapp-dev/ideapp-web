@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Editor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/editor.css">
+</head>
+
+<body>
+    <%- include('./partials/navbar')%>
+        <div class="editor">
+            <div class="questions">
+                <!-- <button type="button" class="btn btn-secondary">q1</button> -->
+            </div>
+            <div class="editor__wrapper">
+                <div class="top-panel mb-3">
+                    <button type="button" class="btn btn-danger" id="restrictions" data-bs-toggle="modal"
+                        data-bs-target="#backdrop">
+                        See Restrictions
+                    </button>
+                    
+                    <button class="editor__btn" id="add">Add</button>
+                    <button class="editor__btn" id="save">Save</button>
+                    <button class="editor__btn" id="addExamBtn" data-bs-toggle="modal"
+                    data-bs-target="#settings">Settings</button>
+            
+                    <!-- Modal Restrictions -->
+                    <div class="modal fade" id="backdrop" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Restricteds</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-6 funcs">
+                                                <h5>Functions</h5>
+                                                <hr>
+                                                <ul id="funcs">
+                                                    <% for(var i=0; i < restrictedFuncs.length ; i++) { %>
+                                                        <li><%= restrictedFuncs[i] %></li>
+                                                    <% } %>
+                                                </ul>
+                                            </div>
+                                            <div class="col-6 libs">
+                                                <h5>Libraries</h5>
+                                                <hr>
+                                                <ul id="libs">
+                                                    <% for(var i=0; i < restrictedLibs.length ; i++) { %>
+                                                        <li><%= restrictedLibs[i] %></li>
+                                                    <% } %>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                     <button class="btn btn-primary" data-bs-target="#addNewRestriction" data-bs-toggle="modal" data-bs-dismiss="modal">Add New Restriction</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="addNewRestriction" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalToggleLabel2">Add New Restriction</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/instructor-main/<%= exam_id %>/set-restriction" method="post">
+                                    <div class="form-group mb-3">
+                                        <label for="exampleFormControlSelect1">Restricton Type</label>
+                                        <select class="form-control" id="exampleFormControlSelect1" name="type">
+                                          <option>function</option>
+                                          <option>library</option>
+                                        </select>
+                                      </div>
+                                    <div class="mb-3">
+                                      <label for="restriction-text" class="col-form-label">Restricted:</label>
+                                      <input type="text" class="form-control" id="restriction-text" name="restricted"></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-success" data-bs-dismiss="modal">Save</button>
+                                      </div>
+                                  </form>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+
+                </div>
+                <div class="panel">
+                    <div class="drop-language">
+                        <form>
+                            Set Language:
+                            <select id="selectLanguage">
+                                <option value="java">Java</option>
+                                <option value="javascript">Javascript</option>
+                                <option value="python" >Python</option>
+                                <option value="c_cpp">C</option>
+                                <option value="c_cpp">C++</option>
+                            </select>
+                        </form>
+                    </div>
+                   
+        
+                    <!-- Modal Settings -->
+                    <div class="modal fade" id="settings" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel" style="color: black;">Settings</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="exam-name" class="col-form-label" style="color: black;">Name</label>
+                                        <input type="text" class="form-control" id="exam-name" value=<%= name %>>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exam-start" class="col-form-label" style="color: black;">Start Time</label>
+                                        <input type="text" class="form-control" id="exam-start" value= '<%= start %>' placeholder="March 27, 2022 19:00:00">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exam-end" class="col-form-label" style="color: black;">End Time</label>
+                                        <input type="text" class="form-control" id="exam-end" value= '<%= end %>' placeholder="March 27, 2022 20:00:00">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="saveExam">Save</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div class="appereance">
+                        <div class="drop-theme">
+                            <form>
+                                Theme:
+                                <select id="selectTheme">
+                                    <option value="dreamweaver">Dreamweaver</option>
+                                    <option value="dracula" selected>Dracula</option>
+                                    <option value="solarized_dark">Solarized Dark</option>
+                                    <option value="solarized_light">Solarized Light</option>
+                                    <option value="ambiance">Ambiance</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="drop-fontsize">
+                            <form>
+                                Font Size:
+                                <select id="selectFontSize">
+                                    <option value="10">10</option>
+                                    <option value="12" selected>12</option>
+                                    <option value="14">14</option>
+                                    <option value="16">16</option>
+                                    <option value="18">18</option>
+                                    <option value="20">20</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="editor__body">
+                    <div id="editorCode" class="editor__code"></div>
+                </div>
+                <div class="editor__footer">
+                    <div class="editor__footer--left">
+                        <button class="editor__btn editor__run">Run ></button>
+                        <button class="editor__btn editor__reset">Reset ></button>
+                    </div>
+                    <div class="editor__footer--right">
+                        <div class="editor__console">
+                            <ul class="editor__console-logs"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+
+        <!--required ace libraries-->
+        <script src="/js/ace-editor/src-min/ace.js"></script>
+        <!-- <script src="/js/ace-editor/src-min/mode-javascript.js"></script>
+        <script src="/js/ace-editor/src-min/mode-java.js"></script> -->
+        <script src="/js/ace-editor/src-min/ext-language_tools.js"></script>
+
+        <!-- Custom Scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/editor.js"></script>
+        <script src="/js/editor-console.js"></script>
+
+        <script src="/js/instructor-coursepage.js"></script>
+    
+        
+        <script>
+            var ex = '<%- exam %>'
+            var examObj = JSON.parse(ex);
+
+            setQuestionsInstructor();
+
+            const qnum = '<%= qnum %>'
+            const currentCode = examObj.questions[qnum-1];
+            codeEditor.setValue(currentCode);
+
+            const selection = document.getElementById('selectLanguage');
+            selection.value = examObj.configs.language;
+            codeEditor.session.setMode("ace/mode/" + selection.value);
+
+            const saveBtn = document.getElementById('save');
+            saveBtn.addEventListener('click', () =>{
+                console.log("save clicked!");
+                setExamLanguage();
+                setCode(codeEditor.getValue());
+            })
+
+            const addBtn = document.getElementById('add');
+            addBtn.addEventListener('click', () =>{
+                addQuestions();
+            })
+            
+            const saveSettingsBtn = document.getElementById('saveExam');
+            const examName = document.getElementById('exam-name');
+            const examStart = document.getElementById('exam-start');
+            const examEnd = document.getElementById('exam-end');           
+            saveSettingsBtn.addEventListener('click', () =>{
+                saveExamSettings(examName.value, examStart.value, examEnd.value, examObj.lesson_id, examObj._id);
+            })
+
+        </script>
+
+</body>

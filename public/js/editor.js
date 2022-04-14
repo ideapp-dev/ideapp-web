@@ -176,6 +176,57 @@ const setQuestions = function(){
     }
 }
 
+const setQuestionsInstructor = function(){
+    const questionsDiv = document.getElementsByClassName('questions')[0];
+              
+    for(let i = 0; i < examObj.questions.length; i++){
+        var a = document.createElement('a');
+        var linkText = document.createTextNode(`q${i+1}`);
+        a.appendChild(linkText);
+        a.title = i+1;
+        a.href = "/instructor-main/exam/ans/" + examObj._id + "/" + `${i+1}`;
+
+        questionsDiv.appendChild(a);
+    }
+}
+
+const setQuestionsForAsses = function(){
+    const questionsDiv = document.getElementsByClassName('questions')[0];
+              
+    for(let i = 0; i < examObj.questions.length; i++){
+        var a = document.createElement('a');
+        var linkText = document.createTextNode(`q${i+1}`);
+        a.appendChild(linkText);
+        a.title = i+1;
+        a.href = "/instructor-main/exam/" + examObj._id + "/" + studentObj._id + "/" + `${i+1}`;
+
+        questionsDiv.appendChild(a);
+    }
+}
+
+let i = 0;
+const addQuestions = function(){
+    const questionsDiv = document.getElementsByClassName('questions')[0];
+    if( i <= 0)
+        i = examObj.questions.length + 1;
+    
+    fetch('/instructor-main/' + examObj._id + '/add-question', {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'}, 
+      }).then(res => {
+        var a = document.createElement('a');
+        var linkText = document.createTextNode(`q${i}`);
+        a.appendChild(linkText);
+        a.title = i;
+        a.href = "/instructor-main/exam/ans/" + examObj._id + "/" + `${i}`;
+    
+        questionsDiv.appendChild(a);
+
+        i++;
+      });
+    
+}
+
 // Events
 executeCodeBtn.addEventListener('click', () => {
     // Clear console messages
@@ -237,8 +288,8 @@ resetCodeBtn.addEventListener('click', () => {
 cmbLanguage.addEventListener('change', (event) => {
     let selectedLanguage = (cmbLanguage.options[cmbLanguage.selectedIndex].value);
     codeEditor.getSession().setMode("ace/mode/" + selectedLanguage);
-    codeEditor.setValue('');
-    editorLib.clearConsoleScreen();
+    //codeEditor.setValue('');
+    //editorLib.clearConsoleScreen();
     console.log(selectedLanguage);
 })
 
@@ -264,7 +315,44 @@ const saveCode = function(code){
       headers: {'Content-Type': 'application/json'}, 
       body: JSON.stringify(data)
     }).then(res => {
-      console.log("Request complete! response:", res);
+      
+    });
+}
+
+const setCode = function(code){
+    let data = {content: code};
+
+    fetch('/instructor-main/exam/' + examObj._id + '/' + qnum, {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'}, 
+      body: JSON.stringify(data)
+    }).then(res => {
+      
+    });
+}
+
+const setExamLanguage = function(){
+    let selectedLanguage = (cmbLanguage.options[cmbLanguage.selectedIndex].value);
+    let data = {language: selectedLanguage};
+
+    fetch('/instructor-main/' + examObj._id + '/set-language', {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify(data)
+      }).then(res => {
+         
+      });
+}
+
+const savePoint = function(scoreVal){
+    let data = {score: scoreVal};
+
+    fetch("/instructor-main/exam/score/" + examObj._id + "/" + studentObj._id + "/" + qnum, {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'}, 
+      body: JSON.stringify(data)
+    }).then(res => {
+      
     });
 }
 
