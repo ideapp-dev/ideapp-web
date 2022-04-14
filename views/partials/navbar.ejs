@@ -17,6 +17,13 @@
                         </li>
                         <% } else {%>
                             <li class="nav-item active">
+                                <% if(isInstructor) {%>
+                                    <a class="nav-link" href="/instructor-main">Lectures</a>
+                                <% } else { %>
+                                    <a class="nav-link" href="/student-main">Lectures</a>
+                                <% } %>
+                            </li>
+                            <li class="nav-item active">
                                 <a class="nav-link" href="/playground">Playground</a>
                             </li>
                             <li class="nav-item active">
