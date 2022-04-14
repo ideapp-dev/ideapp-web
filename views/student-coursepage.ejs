@@ -11,20 +11,20 @@
 </head>
 
 <body class="d-flex flex-column vh-100">
-    <%- include('../partials/navbar')%>
+    <%- include('partials/navbar')%>
     <div class="container-main">
 
         <div class="row">
             <div class="col">
                 <div class="wrapper-wrapper">
-                    <div class="wrapper-header">Student ID</div>
+                    <div class="wrapper-header">Students</div>
                     <div class="wrapper">
                         <div class="card_item">
                             <h4 style="text-align: left"> 
                                 <ul>
-                                    <li>Çido</li>
-                                    <li>Yiğit</li>
-                                    <li>Hebele</li>
+                                    <% for(var i=0; i < names.length; i++) { %>
+                                        <li><%=names[i]%>-<%=student_ids[i]%></li>
+                                    <% } %>
                               </ul> 
                             </h4>
                         </div>
@@ -39,9 +39,9 @@
                             <div class="card_item">
                                 <h4 style="text-align: left"> 
                                     <ul>
-                                        <li><a href="#" class="link">Çido</a></li>
-                                        <li><a href="#" class="link">Yiğit</a></li>
-                                        <li><a href="#" class="link">Hebele</a></li>
+                                        <% for(var i=0; i < exam_names.length; i++) { %>
+                                            <li><a href="/instructor-main/exam/ans/<%=exam_ids[i]%>/1" class="link"><%=exam_names[i]%></a></li>
+                                        <% } %>
                                   </ul> 
                                 </h4>
                             </div>
@@ -56,9 +56,7 @@
                             <div class="card_item">
                                 <h4 style="text-align: left"> 
                                     <ul>
-                                        <li><a href="#" class="link">Çido</a></li>
-                                        <li><a href="#" class="link">Yiğit</a></li>
-                                        <li><a href="#" class="link">Hebele</a></li>
+                   
                                   </ul> 
                                 </h4>
                             </div>
@@ -73,9 +71,7 @@
                         <div class="card_item">
                             <h4 style="text-align: left"> 
                                 <ul>
-                                    <li><a href="#" class="link">Çido</a></li>
-                                    <li><a href="#" class="link">Yiğit</a></li>
-                                    <li><a href="#" class="link">Hebele</a></li>
+                            
                               </ul> 
                             </h4>
                         </div>
@@ -84,7 +80,7 @@
             </div>
         </div>
     </div>
-    <%- include('../partials/footer')%>
+    <%- include('partials/footer')%>
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
                 integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
                 crossorigin="anonymous"></script>
