@@ -74,6 +74,14 @@ app.use(passport.session())
 app.use((req, res, next) => {
     console.log("current user:", req.user);
     res.locals.currentUser = req.user;
+    
+    if(res.locals.currentUser){
+        if(res.locals.currentUser[0].student_id)
+            res.locals.isInstructor = false;
+        else
+            res.locals.isInstructor = true;
+    }
+        
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
