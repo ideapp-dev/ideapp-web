@@ -14,6 +14,10 @@ img {
     height: 100%;
 }
 
+.tab {
+    display: inline-block;
+    margin-left: 100px;
+}
 .container-main {
     margin: auto;
     width: 90%;
@@ -22,7 +26,7 @@ img {
 
 .container-name {
     margin: auto;
-    width: 90%;
+    width: 95%;
     height: 70px;
     background: #457b9d6b;
     color: #fff;
@@ -38,16 +42,17 @@ img {
 
 .wrapper-wrapper {
     margin: auto;
-    width: 320px;
-    height: 100px;
+    width: 90%;
+    height: 70%;
 }
 
 .wrapper {
     background: #eedfcc;
     color: #555555;
-    width: 320px;
-    height: 300px;
+    width: 100%;
+    height: 400px;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .link {
@@ -60,7 +65,7 @@ img {
     height: 60px;
     background: #457b9d6b;
     color: #fff;
-    text-align: center;
+    text-align: left;
     display: flex;
     justify-content: center;
     align-items: center;
