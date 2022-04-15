@@ -6,6 +6,7 @@ const Instructor = require('../models/instructor');
 const Lesson = require('../models/lesson');
 const { isLoggedIn } = require('../middleware');
 const Exam = require('../models/exam');
+const exam = require('../models/exam');
 
 const setObj = function(obj){
     let stringified =  JSON.stringify(obj);
@@ -141,25 +142,6 @@ router.post('/exam/:id/:q', async (req, res) =>{
     await exam.save();
 })
 
-//get selected student exam content
-router.get('/exam/:examid/:studentid/:q', async (req,res) =>{
-    const{examid, studentid, q} = req.params;
-    const exam = await Exam.findById(examid);
-
-    const currentStudent = await Student.findById(studentid);
-
-    const exams = currentStudent.exams;
-    const currentExam = exams.findIndex(x => x.exam_id == examid);
-
-    var escapedCurrentExam = setObj(exams[currentExam]);
-    var escapedExam = setObj(exam);
-    var escapedStudent = setObj(currentStudent);
-
-    res.render('asses-exam-editor', { exam: escapedExam,exam_id: exam._id, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum: q, currentExam: escapedCurrentExam,
-    currentStudent: escapedStudent});
-
-})
-
 //set score for exam questions
 router.post('/exam/score/:examid/:studentid/:q', async (req,res) =>{
     const{examid, studentid, q} = req.params;
@@ -173,6 +155,49 @@ router.post('/exam/score/:examid/:studentid/:q', async (req,res) =>{
 
     await currentStudent.save();
 
+})
+
+//get selected student exam content
+router.get('/exam/:examid/:studentobj_id/:q', async (req, res) =>{
+    const{examid, studentobj_id, q} = req.params;
+    const exam = await Exam.findById(examid);
+
+    const currentStudent = await Student.findById(studentobj_id);
+
+    const exams = currentStudent.exams;
+    const currentExam = exams.findIndex(x => x.exam_id == examid);
+
+    var escapedCurrentExam = setObj(exams[currentExam]);
+    var escapedExam = setObj(exam);
+    var escapedStudent = setObj(currentStudent);
+
+    res.render('asses-exam-editor', { exam: escapedExam,exam_id: exam._id, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum: q, currentExam: escapedCurrentExam,
+    currentStudent: escapedStudent});
+
+})
+
+//get selected student contents
+router.get('/:lectureid/student-contents/:studentid/:obj_id', async(req, res) =>{
+    const {lectureid, studentid, obj_id} = req.params;
+    const student = await Student.findById(obj_id);
+    const name = student.name;
+
+    let exams = student.exams;
+    const lectureExams = [];
+    for(let i = 0; i < exams.length; i++){ //extract selected lectures exams
+        const exam = await Exam.findById(exams[i].exam_id);
+        if(exam.lesson_id == lectureid)
+            lectureExams.push(exam);
+    }
+
+    exams = lectureExams;
+
+    const exam_names = [];
+    for(let i = 0; i < exams.length; i++){ //extract lectures exam names for the student.
+        exam_names.push(exams[i].name);
+    }
+
+    res.render('student-in-course', {name:name, studentid:studentid, studentobj_id:obj_id, exams:exams, exam_names:exam_names});
 })
 
 module.exports = router;

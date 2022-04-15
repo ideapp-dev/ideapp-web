@@ -23,7 +23,7 @@
                             <h4 style="text-align: left"> 
                                 <ul>
                                     <% for(var i=0; i < names.length; i++) { %>
-                                    <li><a href="/student-in-course.ejs" class="link"><%=names[i]%>-<%=student_ids[i]%></a></li>
+                                    <li><a href="/instructor-main/<%=lecture_id%>/student-contents/<%=student_ids[i]%>/<%=ids[i]%>" class="link"><%=names[i]%>-<%=student_ids[i]%></a></li>
                                     <% } %>
                               </ul> 
                             </h4>

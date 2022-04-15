@@ -11,12 +11,12 @@
 </head>
 
 <body class="d-flex flex-column vh-100">
-    <%- include('../partials/navbar')%>
+    <%- include('partials/navbar')%>
     <main class="container-main">
         <div class="row">
             <div class="row">
                 <div class="container-name">
-                    Çiğdem
+                    <%=name%> - <%=studentid%>
                 </div>  
             </div>
             <div class="row">
@@ -28,9 +28,9 @@
                             <div class="card_item">
                                 <h4 style="text-align: left"> 
                                     <ul>
-                                        <li><a href="#" class="link">Çido</a></li>
-                                        <li><a href="#" class="link">Yiğit</a></li>
-                                        <li><a href="#" class="link">Hebele</a></li>
+                                        <% for(var i=0; i < exams.length; i++) { %>
+                                            <li><a href="/instructor-main/exam/<%=exams[i]._id%>/<%=studentobj_id%>/1" class="link"><%=exam_names[i]%></a></li>
+                                        <% } %>
                                   </ul> 
                                 </h4>
                             </div>
@@ -45,9 +45,7 @@
                             <div class="card_item">
                                 <h4 style="text-align: left"> 
                                     <ul>
-                                        <li><a href="#" class="link">Çido</a></li>
-                                        <li><a href="#" class="link">Yiğit</a></li>
-                                        <li><a href="#" class="link">Hebele</a></li>
+                                       
                                     </ul> 
                                 </h4>
                             </div>
@@ -57,14 +55,12 @@
                 <div class="col">
                     <br>
                     <div class="wrapper-wrapper">
-                        <div class="wrapper-header">Quizzes</div>
+                        <div class="wrapper-header">Quizes</div>
                         <div class="wrapper">
                             <div class="card_item">
                                 <h4 style="text-align: left"> 
                                     <ul>
-                                        <li><a href="#" class="link">Çido</a></li>
-                                        <li><a href="#" class="link">Yiğit</a></li>
-                                        <li><a href="#" class="link">Hebele</a></li>
+                                    
                                     </ul> 
                                 </h4>
                             </div>
@@ -74,7 +70,7 @@
             </div>
         </div>
     </main>
-    <%- include('../partials/footer')%>
+    <%- include('partials/footer')%>
 
 
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
