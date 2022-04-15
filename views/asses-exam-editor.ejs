@@ -28,10 +28,15 @@
                     
                     <button class="editor__btn" id="save" type="submit">Save</button>
                     
-                    <button type="button" class="btn btn-success" id="point" data-bs-toggle="modal"
+                    <div class="score">
+                        <span style="margin-right: 2rem; vertical-align:bottom;" id="scoreSpan">Score: 0</span>
+                        <button type="button" class="btn btn-success" id="point" data-bs-toggle="modal"
                         data-bs-target="#givepoint">
                         Give a Point
                     </button>
+                    </div>
+                    
+                    
 
                     <!-- Modal -->
                     <div class="modal fade" id="givepoint" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -204,6 +209,10 @@
             const selection = document.getElementById('selectLanguage');
             selection.value = examObj.configs.language;
             codeEditor.session.setMode("ace/mode/" + selection.value);
+
+            const scoreSpan = document.getElementById('scoreSpan');
+            if(exCurrentObj.score[qnum-1] != null && exCurrentObj.score[qnum-1] != undefined)
+                scoreSpan.innerText = "Score: " + exCurrentObj.score[qnum-1];
 
             //save current code in editor
             const saveBtn = document.getElementById('save');
