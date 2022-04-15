@@ -184,10 +184,22 @@ router.get('/:lectureid/student-contents/:studentid/:obj_id', async(req, res) =>
 
     let exams = student.exams;
     const lectureExams = [];
-    for(let i = 0; i < exams.length; i++){ //extract selected lectures exams
+    const totalScores = [];
+    for(let i = 0; i < exams.length; i++){ //extract selected lectures exams.
         const exam = await Exam.findById(exams[i].exam_id);
-        if(exam.lesson_id == lectureid)
+        if(exam.lesson_id == lectureid){
             lectureExams.push(exam);
+            
+            let total = 0;
+            for(let k = 0; k < exams[i].score.length; k++){ //get total scores for the exams.
+                const score = exams[i].score[k];
+                if(score != null && score != undefined)
+                    total = total + parseInt(score);
+            }
+
+            totalScores.push(total);
+
+        }
     }
 
     exams = lectureExams;
@@ -197,7 +209,7 @@ router.get('/:lectureid/student-contents/:studentid/:obj_id', async(req, res) =>
         exam_names.push(exams[i].name);
     }
 
-    res.render('student-in-course', {name:name, studentid:studentid, studentobj_id:obj_id, exams:exams, exam_names:exam_names});
+    res.render('student-in-course', {name:name, studentid:studentid, studentobj_id:obj_id, exams:exams, exam_names:exam_names, totalScores: totalScores});
 })
 
 module.exports = router;
