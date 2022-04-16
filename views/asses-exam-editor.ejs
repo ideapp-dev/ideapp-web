@@ -24,10 +24,7 @@
                         data-bs-target="#backdrop">
                         See Restrictions
                     </button>
-                    
-                    
-                    <button class="editor__btn" id="save" type="submit">Save</button>
-                    
+                                        
                     <div class="score">
                         <span style="margin-right: 2rem; vertical-align:bottom;" id="scoreSpan">Score: 0</span>
                         <button type="button" class="btn btn-success" id="point" data-bs-toggle="modal"
@@ -36,8 +33,6 @@
                     </button>
                     </div>
                     
-                    
-
                     <!-- Modal -->
                     <div class="modal fade" id="givepoint" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -210,15 +205,10 @@
             selection.value = examObj.configs.language;
             codeEditor.session.setMode("ace/mode/" + selection.value);
 
+            //show current score of the selected question
             const scoreSpan = document.getElementById('scoreSpan');
             if(exCurrentObj.score[qnum-1] != null && exCurrentObj.score[qnum-1] != undefined)
                 scoreSpan.innerText = "Score: " + exCurrentObj.score[qnum-1];
-
-            //save current code in editor
-            const saveBtn = document.getElementById('save');
-            saveBtn.addEventListener('click', () =>{
-               
-            })
 
             const pointBtn = document.getElementById('savePoint');
             const scoreVal = document.getElementById('score-val');

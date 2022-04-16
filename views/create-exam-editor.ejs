@@ -14,6 +14,16 @@
 
 <body>
     <%- include('./partials/navbar')%>
+    <!-- Alert Save Button -->
+    <div class="modal fade" id="saveAlert" role="dialog">
+        <div class="modal-dialog">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Configurations are saved successfully!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+      </div>
+
         <div class="editor">
             <div class="questions">
                 <!-- <button type="button" class="btn btn-secondary">q1</button> -->
@@ -26,9 +36,8 @@
                     </button>
                     
                     <button class="editor__btn" id="add">Add</button>
-                    <button class="editor__btn" id="save">Save</button>
-                    <button class="editor__btn" id="addExamBtn" data-bs-toggle="modal"
-                    data-bs-target="#settings">Settings</button>
+                    <button class="editor__btn" id="save"  data-bs-toggle="modal" data-bs-target="#saveAlert">Save</button>
+                    <button class="editor__btn" id="addExamBtn" data-bs-toggle="modal" data-bs-target="#settings">Settings</button>
             
                     <!-- Modal Restrictions -->
                     <div class="modal fade" id="backdrop" tabindex="-1" aria-labelledby="exampleModalLabel"

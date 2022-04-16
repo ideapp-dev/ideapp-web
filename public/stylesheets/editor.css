@@ -138,6 +138,14 @@ html, body {
     color: rgb(45, 125, 29);
 }
 
+#save:hover{
+    
+    border: 2px solid rgb(45, 125, 29);
+    background-color: rgb(45, 125, 29);
+    color: white;
+}
+
+
 #add{
     margin-right: .8em;
     padding: 5px;
