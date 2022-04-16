@@ -49,8 +49,11 @@ router.get('/exam/:id', async(req,res) =>{
     const { id, q } = req.params;
     const exam = await Exam.findById(id);
 
-    if(isExamTimeEnd(exam))
-        res.send("exam is ended!");
+    if(isExamTimeEnd(exam)){
+        const err = {};
+        err.message = "Exam is ended!";
+        res.render('error',  {err} )
+    }
 
     if(isExamTimeOn(exam)){
         const currentUser = await Student.findById(req.user[0]._id);
@@ -84,8 +87,12 @@ router.get('/exam/:id', async(req,res) =>{
 
         res.render('exam-editor', { exam: escapedExam, restrictedFuncs: exam.configs.restrictedFuncs, restrictedLibs: exam.configs.restrictedLibs, qnum: q, currentExam: escapedCurrentExam});
     }
-    else
-        res.send("exam is not started yet!");
+    else{
+        const err = {};
+        err.message = "Exam is not started yet!";
+        err.stack = "Will be available at " + exam.start_time
+        res.render('error',  {err} );
+    }
 
 })
 
