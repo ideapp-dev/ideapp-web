@@ -25,6 +25,8 @@
                                     <% for(var i=0; i < names.length; i++) { %>
                                         <li><%=names[i]%>-<%=student_ids[i]%></li>
                                     <% } %>
+                                    <li>Yiğit-161101064</li>
+                                    <li>Salih-181101016</li>
                               </ul> 
                             </h4>
                         </div>
@@ -34,46 +36,78 @@
             <div class="col text-white">
                 <div class="row">
                     <div class="wrapper-wrapper-quizexam">
-                        <div class="wrapper-header">Exams</div>
+                        <div class="wrapper-header">Exams<span class="tab"></span>Score</div>
                         <div class="wrapper-quizexam">
                             <div class="card_item">
-                                <h4 style="text-align: left"> 
-                                    <ul>
-                                        <% for(var i=0; i < exam_names.length; i++) { %>
-                                            <li><a href="/student-main/exam/<%=exam_ids[i]%>" class="link"><%=exam_names[i]%></a></li>
-                                        <% } %>
-                                  </ul> 
-                                </h4>
+                                <div class="row">
+                                    <div class="col">
+                                        <h4 style="text-align: left"> 
+                                            <ul>
+                                                <% for(var i=0; i < exam_names.length; i++) { %>
+                                                    <li><a href="/student-main/exam/<%=exam_ids[i]%>" class="link"><%=exam_names[i]%></a></li>
+                                                <% } %>
+                                        </ul> 
+                                        </h4>
+                                    </div>
+                                    <div class="col">
+                                        <h3 style="text-align: left">
+                                            <ul>
+                                                
+                                            </ul>
+                                        </h4>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </div>     
                 </div>
                 <br>
                 <div class="row">
                     <div class="wrapper-wrapper-quizexam">
-                        <div class="wrapper-header">Quiz</div>
+                        <div class="wrapper-header">Quizzes<span class="tab"></span>Score</div>
                         <div class="wrapper-quizexam">
                             <div class="card_item">
-                                <h4 style="text-align: left"> 
-                                    <ul>
-                   
-                                  </ul> 
-                                </h4>
+                                <div class="row">
+                                    <div class="col">
+                                        <h4 style="text-align: left"> 
+                                            <ul>
+                                        </ul> 
+                                        </h4>
+                                    </div>
+                                    <div class="col">
+                                        <h3 style="text-align: left">
+                                            <ul>
+                                                
+                                            </ul>
+                                        </h4>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
             <div class="col text-white">
                 <div class="wrapper-wrapper">
-                    <div class="wrapper-header">Assigments</div>
+                    <div class="wrapper-header">Assignments&ensp;&ensp;&ensp;Score</div>
                     <div class="wrapper">
                         <div class="card_item">
-                            <h4 style="text-align: left"> 
-                                <ul>
-                            
-                              </ul> 
-                            </h4>
+                            <div class="row">
+                                <div class="col">
+                                    <h4 style="text-align: left"> 
+                                        <ul>
+                                            
+                                    </ul> 
+                                    </h4>
+                                </div>
+                                <div class="col">
+                                    <h3 style="text-align: left">
+                                        <ul>
+                               
+                                        </ul>
+                                    </h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
