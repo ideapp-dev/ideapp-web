@@ -30,7 +30,7 @@ router.get('/:lectureid/:code', async (req, res) => {
         if(currentExamIndex != -1){
             let total = 0;
             for(let k = 0; k < studentExams[currentExamIndex].score.length; k++){ //get total scores for the exams.
-                const score = studentExams[i].score[k];
+                const score = studentExams[currentExamIndex].score[k];
                 if(score != null && score != undefined)
                     total = total + parseInt(score);
             }
