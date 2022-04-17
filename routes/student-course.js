@@ -24,22 +24,20 @@ router.get('/:lectureid/:code', async (req, res) => {
     const currentStudent = await Student.findById(req.user[0]._id);
     let studentExams = currentStudent.exams;
     const totalScores = [];
-    for(let i = 0; i < exams.length; i++){ //extract selected lectures exams.
-        const exam = await Exam.findById(exams[i].exam_id);
-        if(studentExams.exam_id == exams[i].exam_id){
-   
+    for(let i = 0; i < exams.length; i++){
+        const currentExamIndex = studentExams.findIndex(x => x.exam_id == exams[i].id);
+        console.log("currentExamIndex");
+        if(currentExamIndex != -1){
             let total = 0;
-            if(studentExams[i] != null && studentExams[i] != undefined){ //if student did not enter exam yet.
-                for(let k = 0; k < studentExams[i].score.length; k++){ //get total scores for the exams.
-                    const score = studentExams[i].score[k];
-                    if(score != null && score != undefined)
-                        total = total + parseInt(score);
-                }
+            for(let k = 0; k < studentExams[currentExamIndex].score.length; k++){ //get total scores for the exams.
+                const score = studentExams[i].score[k];
+                if(score != null && score != undefined)
+                    total = total + parseInt(score);
             }
 
-            totalScores.push(total);
-
+            totalScores[currentExamIndex] = total;
         }
+
     }
 
     res.render('student-coursepage', {names:names, student_ids:student_ids, exam_names:exam_names, exam_ids:exam_ids, lecture_id:lectureid, totalScores:totalScores})
