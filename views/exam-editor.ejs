@@ -194,7 +194,10 @@
             //save current code in editor
             const saveBtn = document.getElementById('save');
             saveBtn.addEventListener('click', () =>{
-               saveCode(codeEditor.getValue());
+                var now = new Date().getTime();
+                var end = new Date(end_time).getTime();
+                if(now < end)
+                    saveCode(codeEditor.getValue());
             })
         </script>
 
