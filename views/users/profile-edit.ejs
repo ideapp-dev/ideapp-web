@@ -73,11 +73,9 @@
                     if(myInput.value.match(lowerCaseLetters)) {
                       letter.classList.remove("invalid");
                       letter.classList.add("valid");
-                      save.disabled = false;
                     } else {
                       letter.classList.remove("valid");
                       letter.classList.add("invalid");
-                      save.disabled = true;
                   }
                   
                     // Validate capital letters
@@ -89,7 +87,6 @@
                     } else {
                       capital.classList.remove("valid");
                       capital.classList.add("invalid");
-                      save.disabled = true;
                     }
                   
                     // Validate numbers
@@ -97,21 +94,24 @@
                     if(myInput.value.match(numbers)) {
                       number.classList.remove("invalid");
                       number.classList.add("valid");
-                      save.disabled = false;
                     } else {
                       number.classList.remove("valid");
                       number.classList.add("invalid");
-                      save.disabled = true;
                     }
                   
                     // Validate length
                     if(myInput.value.length >= 8) {
                       length.classList.remove("invalid");
                       length.classList.add("valid");
-                      save.disabled = false;
                     } else {
                       length.classList.remove("valid");
                       length.classList.add("invalid");
+                    }
+
+                    if(length.classList.contains("valid") && number.classList.contains("valid") && capital.classList.contains("valid") && letter.classList.contains("valid") ) {
+                      save.disabled = false;
+                    }
+                    else {
                       save.disabled = true;
                     }
                   }

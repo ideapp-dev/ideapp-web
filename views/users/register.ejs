@@ -82,21 +82,23 @@
                     if(idInput.value.match(caseLetters)) {
                       id_letter.classList.remove("valid");
                       id_letter.classList.add("invalid");
-                      regis.disabled = true;
                     } else {
                       id_letter.classList.remove("invalid");
                       id_letter.classList.add("valid");
-                      regis.disabled = false;
                     }
                   
                     // Validate length
                     if(idInput.value.length == 9) {
                       num.classList.remove("invalid");
                       num.classList.add("valid");
-                      regis.disabled = false;
                     } else {
                       num.classList.remove("valid");
                       num.classList.add("invalid");
+                    }
+                    if(num.classList.contains("valid") && id_letter.classList.contains("valid") ) {
+                      regis.disabled = false;
+                    }
+                    else {
                       regis.disabled = true;
                     }
                   }
@@ -127,11 +129,9 @@
                     if(myInput.value.match(lowerCaseLetters)) {
                       letter.classList.remove("invalid");
                       letter.classList.add("valid");
-                      reg.disabled = false;
                     } else {
                       letter.classList.remove("valid");
                       letter.classList.add("invalid");
-                      reg.disabled = true;
                   }
                   
                     // Validate capital letters
@@ -143,7 +143,6 @@
                     } else {
                       capital.classList.remove("valid");
                       capital.classList.add("invalid");
-                      reg.disabled = true;
                     }
                   
                     // Validate numbers
@@ -151,21 +150,24 @@
                     if(myInput.value.match(numbers)) {
                       number.classList.remove("invalid");
                       number.classList.add("valid");
-                      reg.disabled = false;
                     } else {
                       number.classList.remove("valid");
                       number.classList.add("invalid");
-                      reg.disabled = true;
                     }
                   
                     // Validate length
                     if(myInput.value.length >= 8) {
                       length.classList.remove("invalid");
                       length.classList.add("valid");
-                      reg.disabled = false;
                     } else {
                       length.classList.remove("valid");
                       length.classList.add("invalid");
+                    }
+
+                    if(length.classList.contains("valid") && number.classList.contains("valid") && capital.classList.contains("valid") && letter.classList.contains("valid") ) {
+                      reg.disabled = false;
+                    }
+                    else {
                       reg.disabled = true;
                     }
                   }
